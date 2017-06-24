@@ -25,6 +25,10 @@ export default class SignupController {
       return this.Auth.createUser({
         name: this.user.name,
         email: this.user.email,
+        rollnum: this.user.rollnum,
+        phone: this.user.phone,
+        branch: this.user.year,
+        college: this.user.college,
         password: this.user.password
       })
         .then(() => {
