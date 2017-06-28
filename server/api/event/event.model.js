@@ -13,11 +13,22 @@ var EventSchema = new mongoose.Schema({
   	type: Schema.Types.ObjectId
   },
   instructions: String,
-  registered: {
-  	type: Array,
-  	default: []
+  registered: [{
+  participant:{type: mongoose.Schema.Types.ObjectId,
+    ref: 'Post'},
+  attendence:{type:Boolean, 
+    default: false
   }
+}]
 });
+
+// var RegisSchema = new mongoose.schema({
+//   participant:{type: mongoose.Schema.Types.ObjectId,
+//     ref: 'Post'},
+//   attendence:{type:Boolean, 
+//     default: false
+//   }
+// });
 
 registerEvents(EventSchema);
 export default mongoose.model('Event', EventSchema);

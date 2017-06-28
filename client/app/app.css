@@ -46,6 +46,7 @@
 /* inject:css */
 @import 'admin/admin.css';
 @import 'edition/edition.css';
+@import 'events/events.css';
 @import 'main/main.css';
 @import '../components/footer/footer.css';
 @import '../components/modal/modal.css';

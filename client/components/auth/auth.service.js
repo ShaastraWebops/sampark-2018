@@ -201,7 +201,9 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
     isAdmin(...args) {
       return Auth.hasRole(Reflect.apply([].concat, ['admin'], args));
     },
-
+    isCore(...args) {
+      return Auth.hasRole(Reflect.apply([].concat, ['core'], args));
+    },
     /**
      * Check if a user is an admin
      *
@@ -211,7 +213,10 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
       // eslint-disable-next-line no-sync
       return Auth.hasRoleSync('admin');
     },
-
+    isCoreSync() {
+      // eslint-disable-next-line no-sync
+      return Auth.hasRoleSync('core');
+    },
     /**
      * Get auth token
      *

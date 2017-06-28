@@ -14,7 +14,7 @@ export class EditionComponent {
 
 }
 
-export default angular.module('sampark2018App.edition', [uiRouter, $http])
+export default angular.module('sampark2018App.edition', [uiRouter])
   .config(routes)
   .component('edition', {
     template: require('./edition.html'),

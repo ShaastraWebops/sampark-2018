@@ -23,6 +23,7 @@ import navbar from '../components/navbar/navbar.component';
 import footer from '../components/footer/footer.component';
 import main from './main/main.component';
 import edition from './edition/edition.component';
+import events from './events/events.component';
 import constants from './app.constants';
 import util from '../components/util/util.module';
 import socket from '../components/socket/socket.service';
@@ -30,7 +31,7 @@ import socket from '../components/socket/socket.service';
 import './app.css';
 
 angular.module('samparkApp', [ngCookies, ngResource, ngSanitize, 'btford.socket-io', uiRouter,
-  uiBootstrap, _Auth, account, admin, 'validation.match', navbar, footer, main, edition, constants,
+  uiBootstrap, _Auth, account, admin, events, 'validation.match', navbar, footer, main, edition, constants,
   socket, util
 ])
   .config(routeConfig)
