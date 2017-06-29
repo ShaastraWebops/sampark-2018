@@ -9,6 +9,9 @@ module.exports = {
   DOMAIN: 'http://localhost:9000',
   SESSION_SECRET: 'sampark-secret',
 
+  FACEBOOK_ID: 'app-id',
+  FACEBOOK_SECRET: 'secret',
+  
   GOOGLE_ID: 'app-id',
   GOOGLE_SECRET: 'secret',
 
