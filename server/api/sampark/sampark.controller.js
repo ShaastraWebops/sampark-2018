@@ -116,3 +116,12 @@ export function destroy(req, res) {
     .then(removeEntity(res))
     .catch(handleError(res));
 }
+
+export function actst(req,res){
+  if(req.body._id) {
+    Reflect.deleteProperty(req.body, '_id');
+  }
+  return Sampark.findOneAndUpdate({_id: req.params.id}, {active:req.params.state }, {new: true, upsert: false, setDefaultsOnInsert: true, runValidators: true}).exec()
+    .then(respondWithResult(res))
+    .catch(handleError(res));
+}

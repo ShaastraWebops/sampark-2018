@@ -116,3 +116,22 @@ export function destroy(req, res) {
     .then(removeEntity(res))
     .catch(handleError(res));
 }
+
+export function myregis(req, res){
+  return null;
+}
+export function regisuser(req, res){
+  return null;
+}
+export function deregister(req, res){
+  return null;
+}
+export function putattendence(req, res){
+  return null;
+}
+export function eventregis(req, res){
+  return null;
+}
+export function addadmin(req, res){
+  return null;
+}
