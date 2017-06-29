@@ -65,7 +65,7 @@ export function show(req, res, next) {
 
 /**
  * Deletes a user
- * restriction: 'admin'
+ * restriction: 'core'
  */
 export function destroy(req, res) {
   return User.findByIdAndRemove(req.params.id).exec()
@@ -82,7 +82,6 @@ export function changePassword(req, res) {
   var userId = req.user._id;
   var oldPass = String(req.body.oldPassword);
   var newPass = String(req.body.newPassword);
-
   return User.findById(userId).exec()
     .then(user => {
       if(user.authenticate(oldPass)) {
@@ -119,4 +118,29 @@ export function me(req, res, next) {
  */
 export function authCallback(req, res) {
   res.redirect('/');
+}
+
+export function makeadmin(req, res) {
+  if(req.body._id) {
+    Reflect.deleteProperty(req.body, '_id');
+  }
+  return User.findOneAndUpdate({_id: req.params.id}, {role:'admin'}, {new: true, upsert: false, setDefaultsOnInsert: true, runValidators: true}).exec()
+    .then(respondWithResult(res))
+    .catch(handleError(res));
+}
+
+function respondWithResult(res, statusCode) {
+  statusCode = statusCode || 200;
+  return function(entity) {
+    if(entity) {
+      return res.status(statusCode).json(entity);
+    }
+    return null;
+  };
+}
+function handleError(res, statusCode) {
+  statusCode = statusCode || 500;
+  return function(err) {
+    res.status(statusCode).send(err);
+  };
 }

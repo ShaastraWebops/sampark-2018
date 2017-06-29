@@ -1,8 +1,10 @@
 'use strict';
 
 export default class AdminController {
+  $http;
   /*@ngInject*/
-  constructor(User) {
+  constructor(User,$http) {
+  	this.$http = $http;
     // Use the User $resource to fetch all users
     this.users = User.query();
   }
@@ -10,5 +12,16 @@ export default class AdminController {
   delete(user) {
     user.$remove();
     this.users.splice(this.users.indexOf(user), 1);
+  }
+
+  mkadm(user){
+  	console.log(user);
+  }
+
+  mkadmin(user){
+
+  	console.log("-----mkadm------",user);
+    this.$http.put(`/api/users/mkadm/${user._id}`).then((res)=> console.log(res));
+    console.log("\nadmin\n");
   }
 }
