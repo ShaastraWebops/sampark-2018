@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import expressJwt from 'express-jwt';
 import compose from 'composable-middleware';
 import User from '../api/user/user.model';
+import Event from '../api/event/event.model';
 
 var validateJwt = expressJwt({
   secret: config.secrets.session
@@ -60,6 +61,30 @@ export function hasRole(roleRequired) {
     });
 }
 
+/**
+ * Checks if the user role meets the minimum requirements of the route
+ */
+export function hasPower() {
+
+  return compose()
+    .use(isAuthenticated())
+    .use(function eventadmincheck(req, res, next) {
+      if(config.userRoles.indexOf(req.user.role) >= config.userRoles.indexOf('core')) {
+        return next();
+      }
+      else {
+        Event.findById(req.params.eventid).exec()
+        .then(entity => {
+          for(var i=0;i<entity.admins.length;i++){
+            if(req.user._id == entity.admins[i])
+              return next();
+          }
+          return res.status(403).send('Forbidden');
+        });
+        return res.status(403).send('Forbidden');
+      }
+    });
+}
 /**
  * Returns a jwt token signed by the app secret
  */
