@@ -23,6 +23,7 @@ function handleError(res, statusCode) {
  * restriction: 'admin'
  */
 export function index(req, res) {
+  console.log(__filename,"\n\n");
   return User.find({}, '-salt -password').exec()
     .then(users => {
       res.status(200).json(users);
