@@ -12,8 +12,8 @@ module.exports = {
   FACEBOOK_ID: 'app-id',
   FACEBOOK_SECRET: 'secret',
   
-  GOOGLE_ID: 'app-id',
-  GOOGLE_SECRET: 'secret',
+  GOOGLE_ID: '766047559031-s0a2plts4jsu14vmdoaf7o15u77vgba7.apps.googleusercontent.com ',
+  GOOGLE_SECRET: ' XM5Lh2a65yeDkKvBegc32rst ',
 
   // Control debug level for modules using visionmedia/debug
   DEBUG: ''

@@ -1,3 +1,5 @@
+# Not sure why wkhtmptopdf is used instead of html-pdf or html-to-pdf
+
 # sampark
 
 This project was generated with the [Angular Full-Stack Generator](https://github.com/DaftMonk/generator-angular-fullstack) version 4.2.2.

@@ -6,10 +6,20 @@ import * as auth from '../../auth/auth.service';
 
 var router = express.Router();
 
+/*
+no /api/ in url ie not api/certificates/:eventid
+just localhost:3000/certificates
+
+*/
+
+
 //router.get('/:eventid',auth.hasPower(), controller.index);
-router.get('/:eventid/mail',auth.isAuthenticated(), controller.mail);
+// router.get('/:eventid/mail',auth.isAuthenticated(), controller.mail);
+
+//USE IFRAME TO DISPLAY 
 router.get('/:eventid',auth.isAuthenticated(), controller.show);
-router.post('/:eventid',auth.hasPower(), controller.create);
-router.delete('/:eventid',auth.isAuthenticated(), controller.destroy);
+router.post('/:eventid',auth.hasPower(), controller.createpdf);
+router.post('/:eventid/pic',auth.hasRole('core'), controller.create);
+router.delete('/:eventid',auth.hasRole('core'), controller.destroy);
 
 module.exports = router;

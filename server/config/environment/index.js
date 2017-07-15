@@ -44,15 +44,25 @@ var all = {
       }
     }
   },
+
+//we will reset them later
+
+
   facebook: {
     clientID: process.env.FACEBOOK_ID || 'id',
     clientSecret: process.env.FACEBOOK_SECRET || 'secret',
     callbackURL: `${process.env.DOMAIN || ''}/auth/facebook/callback`
   },
+
+//we will reset them later
+
+  // process.env.GOOGLE_ID ||
+  // process.env.GOOGLE_SECRET || 
+  // ${process.env.DOMAIN/hello || ''}
   google: {
-    clientID: process.env.GOOGLE_ID || 'id',
-    clientSecret: process.env.GOOGLE_SECRET || 'secret',
-    callbackURL: `${process.env.DOMAIN || ''}/auth/google/callback`
+    clientID:  '766047559031-s0a2plts4jsu14vmdoaf7o15u77vgba7.apps.googleusercontent.com',
+    clientSecret: 'XM5Lh2a65yeDkKvBegc32rst',
+    callbackURL: `http://localhost:3000/auth/google/callback`
   }
 };
 
