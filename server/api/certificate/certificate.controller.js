@@ -7,10 +7,12 @@
  */
 
 'use strict';
+import config from '../../config/environment/sendgrid.js';
 
 import jsonpatch from 'fast-json-patch';
 import Event from '../event/event.model';
-var api_key = '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';
+//will change it later
+var api_key=config.apikey;
 var sendgrid = require('sendgrid')(api_key);
 var nodemailer = require('nodemailer');
 var multer = require('multer');

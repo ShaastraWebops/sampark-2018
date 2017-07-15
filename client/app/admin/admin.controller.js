@@ -14,9 +14,6 @@ export default class AdminController {
     this.users.splice(this.users.indexOf(user), 1);
   }
 
-  mkadm(user){
-  	console.log(user);
-  }
 
   mkadmin(user){
 
