@@ -17,6 +17,7 @@ just localhost:3000/certificates
 // router.get('/:eventid/mail',auth.isAuthenticated(), controller.mail);
 
 ////// USE IFRAME TO DISPLAY 
+////// install wkhtmltopdf separately , not in package.json
 router.get('/:eventid',auth.isAuthenticated(), controller.show);
 router.post('/:eventid',auth.hasPower(), controller.createpdf);
 router.post('/:eventid/pic',auth.hasRole('core'), controller.create);

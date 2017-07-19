@@ -11,9 +11,7 @@ import config from '../../config/environment/sendgrid.js';
 
 import jsonpatch from 'fast-json-patch';
 import Event from '../event/event.model';
-//will change it later
 var api_key=config.apikey;
-console.log(api_key);
 var sendgrid = require('sendgrid')(api_key);
 var nodemailer = require('nodemailer');
 var multer = require('multer');
@@ -23,39 +21,32 @@ var exec = require('child_process').exec;
 function sendEmail(data,ename,req){
   
   // Convert HTML to PDF with wkhtmltopdf
+
   console.log("Come sendEmail");
-  // var modifiedFirstName = data[i].name.replace(/[^a-zA-Z0-9]/g, '');
   var destinationEmail = data.participant.email;
   var eventid=req.params.eventid;
   var userid=data.participant._id;
   var text_body = 'Thank you for attending Shaastra. PFA your e-certificate.Hope the event ' + ename + ' was good';  
+  
   fs.readFile(__dirname +'/pdfs/'+ eventid + '/' + userid +'.pdf',function(err,data){
     console.log(destinationEmail);
-    // var params = {
-    //   to: destinationEmail,
-    //   from: 'kaarthikrajamv@gmail.com',
-    //   fromname: 'Shaastra Outreach',
-    //   subject: 'Shaastra 2016 || E-certificate',
-    //   text: text_body,
-    //   files: [{filename: ename+ 'e-certificate.pdf', content: data}]
-    // };
-    // var email = new sendgrid.Email(params);
-                var params = {
-                    to: 'pawanprasad30@gmail.com',
-                    from: 'pawanprasad30@gmail.com',
-                    fromname: 'hi',
-                    subject: 'hi',
-                    text: 'hi'
-                    // text: text_body,
-                    // files: [{filename: 'e-certificate.pdf', content: data}]
-                };
-                var email = new sendgrid.Email(params);
+    var params = {
+      to: destinationEmail,
+      from: 'kaarthikrajamv@gmail.com',
+      fromname: 'Shaastra Outreach',
+      subject: 'Shaastra 2016 || E-certificate',
+      text: text_body,
+      files: [{filename: ename+ 'e-certificate.pdf', content: data}]
+    };
+    var email = new sendgrid.Email(params);
+ 
     sendgrid.send(email, function (err, json) {
       console.log('Error sending mail - ', err);
       console.log('Success sending mail - ', json);
     });
   });
 }
+
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
   return function(entity) {
@@ -82,7 +73,6 @@ function respondWithPdf(req,res, statusCode) {
 }
 function pdfConvert(data,req,ename){
 
-  console.log(data);
   var dummyContent = '<!DOCTYPE html><html><head><title></title></head><body>'
                     + '<img style="width:100%" src="../../participation.jpg">'
                     + '<h3 style="position:absolute;top:42.5%;left:35%">'
@@ -93,26 +83,22 @@ function pdfConvert(data,req,ename){
                     + data.ename 
                     + '</h3></body></html>';
   console.log("dummyContent is\n\n",dummyContent);
-//add pdf style if required
-  // if(req.body.hasOwnProperty('template')){
-  //   dummyContent=req.body.template;
-  // }
+
   // var dummyContent = '<!DOCTYPE html><html><head><title></title></head><body><img style="width:100%" src="./winnerscertificate.jpg"><h3 style="position:absolute;top:42.5%;left:35%">Howard</h3><h3 style="position:absolute;top:47%;left:32%">IIT Madras</h3></body></html>';
-  // var modifiedFirstName = data.name.replace(/[^a-zA-Z0-9]/g, '');
   var eventid=req.params.eventid;
   var userid=data.participant._id;
   var htmlFileName = __dirname + '/htmls/'+ eventid + '/' + userid +'.html';
   var pdfFileName = __dirname + '/pdfs/'+ eventid + '/' + userid +'.pdf';
+  
   // Save to HTML file
-console.log("all var : eventid"," htmlFileName ",htmlFileName," pdfFileName ", pdfFileName);
   fs.writeFile(htmlFileName, dummyContent, function(err) {
     console.log("Came fs.writeFile" );
     if(err) { 
       console.log(err); throw err; }
     console.log("file saved to site.html");
     var child = exec("wkhtmltopdf " + htmlFileName + " " + pdfFileName, function(err, stdout, stderr) {
-    if(err) { throw err; }
-      console.log(stderr);
+      if(err) { throw err; }
+        console.log(stderr);
       console.log("Came 2 child_process");
       sendEmail(data,ename,req);
     });
@@ -158,38 +144,39 @@ export function index(req, res) {
 
 // Gets a single Certificate from the DB
 export function show(req, res) {
-    // var filePath = '/pdfs/'+ req.params.eventid+'/'+req.user._id+'.pdf';
-    var filePath = '/pdfs/'+ req.params.eventid+'/'+'hi.pdf';
+    var filePath = __dirname+ '/pdfs/'+ req.params.eventid+'/'+req.user._id+'.pdf';
+
+    fs.readFile(__dirname + filePath , function (err,data){
+        res.contentType("application/pdf");
+        res.send(data);
+    });
+    return null;
+
+// Other Way to add lot of headers
+// var filePath =__dirname + '/pdfs/'+ req.params.eventid+'/'+'hi.pdf';
 // res.writeHead(200, {
 //   'Content-Type': 'application/pdf',
 //   'Content-Disposition': 'attachment; filename=some_file.pdf',
 //   'Content-Length': data.length
 // });
 // res.end(pdfData);
-    fs.readFile(__dirname + filePath , function (err,data){
-        res.contentType("application/pdf");
-        res.send(data);
-    });
-    return null;
 }
 
+// mail Certificate in the DB
 export function mail(req,res){
   return null;
 }
-// mail Certificate in the DB
 export function createpdf(req, res) {
-  console.log("createpdf");
   return Event.findOne({_id:req.params.eventid},'name registerations _id')
     .populate('registerations.participant','name college email _id')
     .exec()
-    // .then(entity=>{console.log(entity.registerations);return entity;})
     .then(respondWithPdf(req,res, 201))
     .catch(handleError(res));
 }
 
 var storage = multer.diskStorage({ //multers disk storage settings
   destination: function (req, file, cb) {
-       cb(null, _dirname + '/uploads/');
+       cb(null, __dirname + '/');
   },
   filename: function (req, file, cb) {
       // var datetimestamp = Date.now();
@@ -212,7 +199,7 @@ export function create(req,res){
 
 // Deletes a Certificate from the DB
 export function destroy(req, res) {
-  var directory='./pdfs/' + req.params.eventid + '/';
+  var directory=__dirname+'./pdfs/' + req.params.eventid + '/';
   fs.readdir(directory, (err, files) => {
     if (err) throw error;
 
@@ -222,7 +209,7 @@ export function destroy(req, res) {
       });
     }
   });
-  var directory='./htmls/' + req.params.eventid + '/';
+  var directory=__dirname+ './htmls/' + req.params.eventid + '/';
 
   fs.readdir(directory, (err, files) => {
     if (err) throw error;
