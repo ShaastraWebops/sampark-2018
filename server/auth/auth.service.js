@@ -37,6 +37,7 @@ export function isAuthenticated() {
           }
           req.user = user;
           next();
+          return null;
         })
         .catch(err => next(err));
     });
@@ -74,14 +75,15 @@ export function hasPower() {
       }
       else {
         Event.findById(req.params.eventid).exec()
-        .then(entity => {
+        .then(entity => { 
+          req.eventlist=entity;
           for(var i=0;i<entity.admins.length;i++){
-            if(req.user._id == entity.admins[i])
+            if(req.user._id.equals( entity.admins[i])) {
               return next();
+            }
           }
           return res.status(403).send('Forbidden');
         });
-        return res.status(403).send('Forbidden');
       }
     });
 }

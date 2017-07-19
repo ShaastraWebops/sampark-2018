@@ -10,13 +10,13 @@
  * patch('/addme/:eventid', regisuser)
  * delete('/delme/:eventid/', deregister)
  * patch('/:eventid/user/:userid/attendence', putattendence)
- * get('/registrations/:eventid', eventregis)
+ * get('/registerations/:eventid', eventregis)
  * put('/:eventid/admin/:adminid', addadmin)
 
  */
 
 'use strict';
-
+var fs = require('fs');
 import jsonpatch from 'fast-json-patch';
 import Event from './event.model';
 
@@ -68,6 +68,7 @@ function handleError(res, statusCode) {
   statusCode = statusCode || 500;
   return function(err) {
     res.status(statusCode).send(err);
+
   };
 }
 
@@ -80,7 +81,7 @@ export function index(req, res) {
 
 // Gets a single Event from the DB
 export function show(req, res) {
-  return Event.findById(req.params.id, '-registrations').exec()
+  return Event.findById(req.params.id, '-registerations').exec()
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
@@ -88,7 +89,15 @@ export function show(req, res) {
 
 // Creates a new Event in the DB
 export function create(req, res) {
+  console.log("Event id create\n\n",req.body);
   return Event.create(req.body)
+    .then(entity => {
+      var fpath=__dirname + '/../certificate/';
+      console.log("entity",fpath);
+    fs.mkdir(fpath+'htmls/'+entity._id); 
+    fs.mkdir(fpath+'pdfs/'+entity._id); 
+    return entity;
+    })
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }
@@ -126,42 +135,53 @@ export function destroy(req, res) {
 
 export function myregis(req, res){
   return Event.find(
-      {'registrations.participant':req.user._id},'-registrations')
-    .populate('admins','name email phone')
+      {'registerations.participant':req.user._id},'-registerations')
+    .populate('admins','name ')
     .exec()
-    .then(respondWithResultWithoutParticipants(res))
+    .then(respondWithResult(res))
+    .then(handleEntityNotFound(res))
     .catch(handleError(res));
 }
 export function regisuser(req, res){
-  var registration={participant:req.user._id,attendence:false};
   return Event.findOneAndUpdate(
       {_id: req.params.eventid},
-      {$push: {registrations: registration}},
+      {$addToSet: {registerations: {participant:req.user._id}}},
       {new: true, upsert: false, setDefaultsOnInsert: true, runValidators: true})
     .exec()
+    .then(entity=>{//remove sensitive data 
+      entity["registerations"]=undefined;
+      return entity;
+    })
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 export function deregister(req, res){
-  return Event.findOneAndupdate(
-      { _id: req.params.eventid , 'registrations.participant':req.user._id},
-      {$pull: { registrations: {participant: req.user.id} } })
+  return Event.findOneAndUpdate(
+      { _id: req.params.eventid , 'registerations.participant':req.user._id},
+      {$pull: { registerations: {participant: req.user.id} } })
     .exec() 
+    .then(entity=>{//remove sensitive data 
+      delete entity.registerations;
+      return entity;
+    })
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 export function putattendence(req, res){
-  return Event.findOneAndupdate(
-      { _id: req.params.eventid , 'registrations.participant':req.params.userid},
-      {$set: { 'registrations.$.attendence':true } })
+  return Event.findOneAndUpdate(
+      { _id: req.params.eventid , 'registerations.participant':req.params.userid},
+      {$set: { 'registerations.$.attendence':true } })
     .exec()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 export function eventregis(req, res){
-  return Event.findById(req.params.eventid).exec()
-    .populate('registrations.participant','-password -salt')
+  return Event.findById(req.params.eventid)
+    .populate('registerations.participant','-password -salt')
     .exec()
+    .then(entity=>{
+      return entity;
+    })
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
@@ -169,16 +189,16 @@ export function eventregis(req, res){
 export function addadmin(req, res){
   return Event.findOneAndUpdate(
       {_id: req.params.eventid},
-      {$push: { 'admins': req.params.adminid } },
+      {$addToSet: { 'admins': req.params.adminid } },
       {new: true, upsert: false, setDefaultsOnInsert: true, runValidators: true})
     .exec()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 export function removeadmin(req, res){
-  return Event.findOneAndupdate(
+  return Event.findOneAndUpdate(
       {_id: req.params.eventid , admins:req.params.adminid},
-      {$pull: { admins:req.params.adminid } })
+      {$pull: { 'admins':req.params.adminid } })
     .exec()   
     .then(respondWithResult(res))
     .catch(handleError(res));
