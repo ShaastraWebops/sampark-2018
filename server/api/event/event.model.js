@@ -11,19 +11,19 @@ var EventSchema = new mongoose.Schema({
   info: String,
   venue: String,
   time: String,
-  admins:[{
+  admins: [{
     type: Schema.Types.ObjectId,
     ref: 'User'
   }],
   sampark: {
-  	type: Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Sampark'
   },
   instructions: String,
   registerations: [{
-  participant:{
+  participant: {
     type: Schema.Types.ObjectId,
-    ref: 'User'},
+    ref: 'User'}, 
   attendence:{
     type:Boolean, 
     default: false}

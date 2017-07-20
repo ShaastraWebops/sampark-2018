@@ -57,12 +57,12 @@ var all = {
 //we will reset them later
 
   // process.env.GOOGLE_ID ||
-  // process.env.GOOGLE_SECRET || 
+  // process.env.GOOGLE_SECRET ||
   // ${process.env.DOMAIN/hello || ''}
   google: {
-    clientID:  '766047559031-s0a2plts4jsu14vmdoaf7o15u77vgba7.apps.googleusercontent.com',
+    clientID: '766047559031-s0a2plts4jsu14vmdoaf7o15u77vgba7.apps.googleusercontent.com',
     clientSecret: 'XM5Lh2a65yeDkKvBegc32rst',
-    callbackURL: `http://localhost:3000/auth/google/callback`
+    callbackURL: 'http://localhost:3000/auth/google/callback'
   }
 };
 

@@ -23,7 +23,6 @@ function handleError(res, statusCode) {
  * restriction: 'admin'
  */
 export function index(req, res) {
-  console.log(__filename,"\n\n");
   return User.find({}, '-salt -password').exec()
     .then(users => {
       res.status(200).json(users);
@@ -126,7 +125,7 @@ export function makeadmin(req, res) {
   if(req.body._id) {
     Reflect.deleteProperty(req.body, '_id');
   }
-  return User.findOneAndUpdate({_id: req.params.id}, {role:'admin'}, {new: true, upsert: false, setDefaultsOnInsert: true, runValidators: true}).exec()
+  return User.findOneAndUpdate({ _id: req.params.id}, { role:'admin'}, {new: true, upsert: false, setDefaultsOnInsert: true, runValidators: true}).exec()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
@@ -138,11 +137,5 @@ function respondWithResult(res, statusCode) {
       return res.status(statusCode).json(entity);
     }
     return null;
-  };
-}
-function handleError(res, statusCode) {
-  statusCode = statusCode || 500;
-  return function(err) {
-    res.status(statusCode).send(err);
   };
 }

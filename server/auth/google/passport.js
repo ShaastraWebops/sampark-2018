@@ -18,8 +18,9 @@ export function setup(User, config) {
           .catch(err => done(err));
           // return null;
         }
-        else {
-            user = new User({
+        else 
+        {
+          user = new User({
             name: profile.displayName,
             email: profile.emails[0].value,
             role: 'user',

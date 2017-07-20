@@ -70,12 +70,11 @@ export function hasPower() {
     .use(isAuthenticated())
     .use(function eventadmincheck(req, res, next) {
       if(config.userRoles.indexOf(req.user.role) >= config.userRoles.indexOf('core')) {
-        return next();
-      }
+        return next();}
       else {
         Event.findById(req.params.eventid).exec()
         .then(entity => {
-          req.eventlist=entity;
+          req.eventlist = entity;
           for(var i = 0; i < entity.admins.length; i++) {
             if(req.user._id.equals(entity.admins[i])) {
               return next();

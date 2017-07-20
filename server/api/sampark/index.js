@@ -12,7 +12,7 @@ router.get('/:id', controller.show);
 router.post('/', auth.hasRole('core'), controller.create);
 
 router.put('/:id', auth.hasRole('core'), controller.upsert);
-router.put('/activate/:id/:state', auth.hasRole(core), controller.actst);
+router.put('/activate/:id/:state', auth.hasRole('core'), controller.actst);
 router.patch('/:id', auth.hasRole('core'), controller.patch);
 
 router.delete('/:id', auth.hasRole('core'), controller.destroy);
