@@ -35,7 +35,9 @@ export class MainController {
 
   deleteThing(thing) {
     this.$http.post(`certificates/596e3cbe132b540f33fb87ba`)
-    .then(res => {this.data=res.data; console.log(res.data);});
+    .then(res => {
+      this.data = res.data; 
+      console.log(res.data);});
   }
 }
 

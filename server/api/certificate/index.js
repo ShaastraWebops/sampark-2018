@@ -9,18 +9,14 @@ var router = express.Router();
 /*
 no /api/ in url ie not api/certificates/:eventid
 just localhost:3000/certificates
-
 */
-
-
 //router.get('/:eventid',auth.hasPower(), controller.index);
 // router.get('/:eventid/mail',auth.isAuthenticated(), controller.mail);
-
-////// USE IFRAME TO DISPLAY 
+////// USE IFRAME TO DISPLAY
 ////// install wkhtmltopdf separately , not in package.json
-router.get('/:eventid',auth.isAuthenticated(), controller.show);
-router.post('/:eventid',auth.hasPower(), controller.createpdf);
-router.post('/:eventid/pic',auth.hasRole('core'), controller.create);
-router.delete('/:eventid',auth.hasRole('core'), controller.destroy);
+router.get('/:eventid', auth.isAuthenticated(), controller.show);
+router.post('/:eventid', auth.hasPower(), controller.createpdf);
+router.post('/:eventid/pic', auth.hasRole('core'), controller.create);
+router.delete('/:eventid', auth.hasRole('core'), controller.destroy);
 
 module.exports = router;

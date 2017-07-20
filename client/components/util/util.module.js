@@ -7,5 +7,5 @@ import {
 
 export default angular.module('samparkApp.util', [])
   .factory('Util', UtilService)
-  .factory("injectCSS", Stylepicker)
+  .factory('injectCSS', Stylepicker)
   .name;

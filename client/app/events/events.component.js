@@ -22,7 +22,7 @@ export default angular.module('sampark2k18App.events', [uiRouter])
   .component('events', {
     template: require('./events.html'),
     controller: EventsComponent,
-  })  
+  })
   .component('eventinfo', {
     template: require('./eventinfo.html'),
     controller: EventsInfoComponent,
@@ -30,4 +30,4 @@ export default angular.module('sampark2k18App.events', [uiRouter])
   .name;
 
     // controllerAs: 'eventsinfoCtrl'
- 
+    

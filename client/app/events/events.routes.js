@@ -6,7 +6,7 @@ export default function($stateProvider) {
     .state('events', {
       url: '/events',
       template: '<events></events>'
-    })  
+    })
     .state('eventinfo', {
       url: '/event/:eventid',
       template: '<eventinfo></eventinfo>'

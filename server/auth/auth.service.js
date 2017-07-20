@@ -66,7 +66,6 @@ export function hasRole(roleRequired) {
  * Checks if the user role meets the minimum requirements of the route
  */
 export function hasPower() {
-
   return compose()
     .use(isAuthenticated())
     .use(function eventadmincheck(req, res, next) {
@@ -75,10 +74,10 @@ export function hasPower() {
       }
       else {
         Event.findById(req.params.eventid).exec()
-        .then(entity => { 
+        .then(entity => {
           req.eventlist=entity;
-          for(var i=0;i<entity.admins.length;i++){
-            if(req.user._id.equals( entity.admins[i])) {
+          for(var i = 0; i < entity.admins.length; i++) {
+            if(req.user._id.equals(entity.admins[i])) {
               return next();
             }
           }
