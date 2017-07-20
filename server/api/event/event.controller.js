@@ -94,6 +94,7 @@ export function create(req, res) {
     .then(entity => {
       var fpath=__dirname + '/../certificate/';
       console.log("entity",fpath);
+    //for certificate storage
     fs.mkdir(fpath+'htmls/'+entity._id); 
     fs.mkdir(fpath+'pdfs/'+entity._id); 
     return entity;

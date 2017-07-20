@@ -16,7 +16,7 @@ just localhost:3000/certificates
 ////// install wkhtmltopdf separately , not in package.json
 router.get('/:eventid', auth.isAuthenticated(), controller.show);
 router.post('/:eventid', auth.hasPower(), controller.createpdf);
-router.post('/:eventid/pic', auth.hasRole('core'), controller.create);
+router.post('/pic/participation',[auth.hasRole('core')], controller.create);
 router.delete('/:eventid', auth.hasRole('core'), controller.destroy);
 
 module.exports = router;

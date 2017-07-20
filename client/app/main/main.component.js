@@ -40,6 +40,22 @@ export class MainController {
       console.log(res.data);});
     console.log(thing);
   }
+  upload(){
+    this.newThing="inside upload func";
+    var file = angular.element(document.querySelector('#file')).prop("files")[0];
+    var files = [];
+    files.push(file);
+    this.newThing=file;
+
+    this.$http.post('certificates/pic/participation', {
+      title: 'certificate', 
+      file: file
+    })
+    .then(res => {
+      this.data = res.data;
+      console.log(res.data);
+    });
+  }
 }
 
 export default angular.module('samparkApp.main', [uiRouter])
