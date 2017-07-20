@@ -144,16 +144,19 @@ export function myregis(req, res){
     .catch(handleError(res));
 }
 export function regisuser(req, res){
+  console.log("came here");
   return Event.findOneAndUpdate(
-      {_id: req.params.eventid},
-      {$addToSet: {registerations: {participant:req.user._id}}},
+      {_id: req.params.eventid , 'registerations.participant':{ '$ne': req.user._id} },
+      {$push: {registerations: {participant:req.user._id}}},
       {new: true, upsert: false, setDefaultsOnInsert: true, runValidators: true})
     .exec()
     .then(entity=>{//remove sensitive data 
+      console.log(entity);
       entity["registerations"]=undefined;
       return entity;
     })
     .then(respondWithResult(res))
+    .then(handleEntityNotFound(res))
     .catch(handleError(res));
 }
 export function deregister(req, res){
