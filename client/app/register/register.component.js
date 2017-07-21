@@ -11,11 +11,15 @@ export class RegisterComponent {
     this.$http = $http;
     this.curCity = '';
     this.curEvents = '';
+    this.curEvent = '';
   }
 
   $onInit(){
     this.$http.get('/api/samparks').then(res => {
       this.sams = res.data;
+    });
+    this.$http.get('/api/users/me').then(res => {
+      this.me = res.data;
     })
   }
 
@@ -30,6 +34,32 @@ export class RegisterComponent {
         })
       }
     })
+  }
+
+  registerEvent(){
+    console.log(this.curEvent);
+    var arr = this.me.registered;
+    
+    arr.push({
+      event: this.curEvent._id,
+      attendance: false
+    });
+
+    var regs = this.curEvent.registrations;
+    regs.push({
+      participant: this.me._id,
+      attendance: false
+    });
+
+    this.$http.put('/api/users/'+this.me._id, {
+      registered: arr
+    }).then(res => {
+      this.$http.put('/api/events/'+this.curEvent._id, {
+        registrations: regs
+      }).then(resp =>{
+        alert('Successfully Registered');
+      });
+    });
   }
 
 }
