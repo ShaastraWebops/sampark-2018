@@ -46,8 +46,10 @@
 /* inject:css */
 @import 'admin/admin.css';
 @import 'edition/edition.css';
+@import 'editsampark/editsampark.css';
 @import 'events/events.css';
 @import 'main/main.css';
+@import 'register/register.css';
 @import '../components/footer/footer.css';
 @import '../components/modal/modal.css';
 @import '../components/oauth-buttons/oauth-buttons.css';

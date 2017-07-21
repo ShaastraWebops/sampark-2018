@@ -5,8 +5,10 @@ import {registerEvents} from './sampark.events';
 
 var SamparkSchema = new mongoose.Schema({
   name: String,
-  info: String,
-  active: Boolean
+  venue: String,
+  time: String,
+  venueLink: String,
+  contact: String
 });
 
 registerEvents(SamparkSchema);

@@ -1,0 +1,60 @@
+<div class="container">
+	<div style="margin-bottom: 5vh;">
+		<div class="btn btn-success" ng-click="samparkCtrl.choose=1">Add</div>
+		<div class="btn btn-primary" ng-click="samparkCtrl.choose=2">Edit</div>
+	</div>
+
+	<div ng-show="samparkCtrl.choose==1">
+		<h2>Add City</h2>
+		<div class="question">
+			<label class="col-sm-12 col-md-6">City Name *</label>
+			<input class="col-sm-12 col-md-6" type="text" ng-model="samparkCtrl.newCity.name"/>
+		</div>
+		<div class="question">
+			<label class="col-sm-12 col-md-6">Venue *</label>
+			<input class="col-sm-12 col-md-6" type="text" ng-model="samparkCtrl.newCity.venue"/>
+		</div>
+		<div class="question">
+			<label class="col-sm-12 col-md-6">Venue Link *</label>
+			<input class="col-sm-12 col-md-6" type="text" ng-model="samparkCtrl.newCity.venueLink"/>
+		</div>
+		<div class="question">
+			<label class="col-sm-12 col-md-6">Reporting Time *</label>
+			<input class="col-sm-12 col-md-6" type="text" ng-model="samparkCtrl.newCity.time"/>
+		</div>
+		<div class="question">
+			<label class="col-sm-12 col-md-6">Contact *</label>
+			<textarea class="col-sm-12 col-md-6" type="text" ng-model="samparkCtrl.newCity.contact"></textarea>
+		</div>
+		<button class="btn btn-success" ng-click="samparkCtrl.addCity()">Add city</button>
+	</div>
+
+	<div ng-show="samparkCtrl.choose==2">
+		<label>Choose City</label>
+		<select ng-options="x.name for x in samparkCtrl.sams" ng-model="samparkCtrl.curCity"></select>
+		<div ng-show="samparkCtrl.curCity != ''">
+			<h2>Edit City</h2>
+			<div class="question">
+				<label class="col-sm-12 col-md-6">City Name *</label>
+				<input class="col-sm-12 col-md-6" type="text" ng-model="samparkCtrl.curCity.name"/>
+			</div>
+			<div class="question">
+				<label class="col-sm-12 col-md-6">Venue *</label>
+				<input class="col-sm-12 col-md-6" type="text" ng-model="samparkCtrl.curCity.venue"/>
+			</div>
+			<div class="question">
+				<label class="col-sm-12 col-md-6">Venue Link *</label>
+				<input class="col-sm-12 col-md-6" type="text" ng-model="samparkCtrl.curCity.venueLink"/>
+			</div>
+			<div class="question">
+				<label class="col-sm-12 col-md-6">Reporting Time *</label>
+				<input class="col-sm-12 col-md-6" type="text" ng-model="samparkCtrl.curCity.time"/>
+			</div>
+			<div class="question">
+				<label class="col-sm-12 col-md-6">Contact *</label>
+				<textarea class="col-sm-12 col-md-6" type="text" ng-model="samparkCtrl.curCity.contact"></textarea>
+			</div>
+			<button class="btn btn-success" ng-click="samparkCtrl.editCity()">Edit city</button>
+		</div>
+	</div>
+</div>
