@@ -8,19 +8,23 @@ import {registerEvents} from './event.events';
 
 var EventSchema = new mongoose.Schema({
   name: String,
-  info: String,
   venue: String,
   time: String,
-  admins: [{
-    type: Schema.Types.ObjectId,
-    ref: 'User'
-  }],
+  
+  // admins: [{
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'User'
+  // }],
+  // commenting admins as of now
+  // there is going to be a single id for the entire M&SR team
+  // so the concept of admin for each event does not come into play.
+
   sampark: {
     type: Schema.Types.ObjectId,
     ref: 'Sampark'
   },
   instructions: String,
-  registerations: [{
+  registrations: [{
   participant: {
     type: Schema.Types.ObjectId,
     ref: 'User'}, 

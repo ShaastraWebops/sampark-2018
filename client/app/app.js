@@ -26,6 +26,7 @@ import edition from './edition/edition.component';
 import events from './events/events.component';
 import register from './register/register.component';
 import editsampark from './editsampark/editsampark.component';
+import editevent from './editevent/editevent.component';
 import constants from './app.constants';
 import util from '../components/util/util.module';
 import socket from '../components/socket/socket.service';
@@ -34,7 +35,7 @@ import './app.css';
 
 angular.module('samparkApp', [ngCookies, ngResource, ngSanitize, 'btford.socket-io', uiRouter,
   uiBootstrap, _Auth, account, admin, events, 'validation.match', navbar, footer, main, edition, register, 
-  editsampark, constants, socket, util
+  editsampark, editevent, constants, socket, util
 ])
   .config(routeConfig)
   .run(function($rootScope, $location, Auth) {

@@ -15,7 +15,7 @@ router.put('/addme/:eventid', auth.isAuthenticated(), controller.regisuser);
 router.delete('/delme/:eventid/', auth.isAuthenticated(), controller.deregister);
 
 router.put('/:eventid/user/:userid/attendence', auth.hasPower(), controller.putattendence);
-router.get('/registerations/:eventid', auth.hasPower(), controller.eventregis);
+router.get('/registrations/:eventid', auth.hasPower(), controller.eventregis);
 
 // router.put('/:eventid/user/:userid/left', auth.hasPower(), controller.putabsence);
 

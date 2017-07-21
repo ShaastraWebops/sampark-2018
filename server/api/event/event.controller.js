@@ -10,7 +10,7 @@
  * patch('/addme/:eventid', regisuser)
  * delete('/delme/:eventid/', deregister)
  * patch('/:eventid/user/:userid/attendence', putattendence)
- * get('/registerations/:eventid', eventregis)
+ * get('/registrations/:eventid', eventregis)
  * put('/:eventid/admin/:adminid', addadmin)
 
  */
@@ -81,7 +81,7 @@ export function index(req, res) {
 
 // Gets a single Event from the DB
 export function show(req, res) {
-  return Event.findById(req.params.id, '-registerations').exec()
+  return Event.findById(req.params.id, '-registrations').exec()
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
@@ -136,7 +136,7 @@ export function destroy(req, res) {
 
 export function myregis(req, res){
   return Event.find(
-      {'registerations.participant':req.user._id},'-registerations')
+      {'registrations.participant':req.user._id},'-registrations')
     .populate('admins','name ')
     .exec()
     .then(respondWithResult(res))
@@ -146,13 +146,13 @@ export function myregis(req, res){
 export function regisuser(req, res){
   console.log("came here");
   return Event.findOneAndUpdate(
-      {_id: req.params.eventid , 'registerations.participant':{ '$ne': req.user._id} },
-      {$push: {registerations: {participant:req.user._id}}},
+      {_id: req.params.eventid , 'registrations.participant':{ '$ne': req.user._id} },
+      {$push: {registrations: {participant:req.user._id}}},
       {new: true, upsert: false, setDefaultsOnInsert: true, runValidators: true})
     .exec()
     .then(entity=>{//remove sensitive data 
       console.log(entity);
-      entity["registerations"]=undefined;
+      entity["registrations"]=undefined;
       return entity;
     })
     .then(respondWithResult(res))
@@ -161,11 +161,11 @@ export function regisuser(req, res){
 }
 export function deregister(req, res){
   return Event.findOneAndUpdate(
-      { _id: req.params.eventid , 'registerations.participant':req.user._id},
-      {$pull: { registerations: {participant: req.user.id} } })
+      { _id: req.params.eventid , 'registrations.participant':req.user._id},
+      {$pull: { registrations: {participant: req.user.id} } })
     .exec() 
     .then(entity=>{//remove sensitive data 
-      delete entity.registerations;
+      delete entity.registrations;
       return entity;
     })
     .then(respondWithResult(res))
@@ -173,15 +173,15 @@ export function deregister(req, res){
 }
 export function putattendence(req, res){
   return Event.findOneAndUpdate(
-      { _id: req.params.eventid , 'registerations.participant':req.params.userid},
-      {$set: { 'registerations.$.attendence':true } })
+      { _id: req.params.eventid , 'registrations.participant':req.params.userid},
+      {$set: { 'registrations.$.attendence':true } })
     .exec()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 export function eventregis(req, res){
   return Event.findById(req.params.eventid)
-    .populate('registerations.participant','-password -salt')
+    .populate('registrations.participant','-password -salt')
     .exec()
     .then(entity=>{
       return entity;
