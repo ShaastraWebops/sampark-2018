@@ -28,6 +28,16 @@ var UserSchema = new Schema({
     type: String,
     default: 'user'
   },
+  registered: [{
+    event: {
+      type: Schema.Types.ObjectId,
+      ref: 'Event'
+    },
+    attendance: {
+      type: Boolean,
+      default: false
+    }
+  }],
   password: {
     type: String,
     required() {

@@ -8,8 +8,9 @@ import routes from './register.routes';
 export class RegisterComponent {
   /*@ngInject*/
   constructor($http) {
-    this.message = 'Hello';
     this.$http = $http;
+    this.curCity = '';
+    this.curEvents = '';
   }
 
   $onInit(){
@@ -17,6 +18,20 @@ export class RegisterComponent {
       this.sams = res.data;
     })
   }
+
+  cityChanged(){
+    this.$http.get('/api/samparks/'+this.curCity._id).then(res =>{
+      this.curids = res.data.events;
+      this.curEvents = []
+      for(var i=0; i<this.curids.length; i++)
+      {
+        this.$http.get('/api/events/'+this.curids[i]).then(res =>{
+          this.curEvents.push(res.data);
+        })
+      }
+    })
+  }
+
 }
 
 export default angular.module('sampark2018App.register', [uiRouter])
