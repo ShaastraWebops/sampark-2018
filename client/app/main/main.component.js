@@ -5,6 +5,7 @@ import routing from './main.routes';
 export class MainController {
   awesomeThings = [];
   newThing = '';
+  samparkid='';
   data='hi';
   /*@ngInject*/
   constructor($http, $scope, socket) {
@@ -26,18 +27,23 @@ export class MainController {
 
   addThing() {
     if(this.newThing) {
-      this.$http.post('/api/things', {
+      this.$http.post('/api/events', {
         name: this.newThing
+      })
+      .then(res => {
+        this.data= res.data;
+        console.log(data);
       });
+       }
       this.newThing = '';
     }
-  }
 
   deleteThing(thing) {
-    this.$http.put('api/events/addme/596e3cbe132b540f33fb87ba')
+    this.$http.put(`api/events/addme/${this.data._id}`)
     .then(res => {
       this.data = res.data;
-      console.log(res.data);});
+      console.log(res.data);
+    });
     console.log(thing);
   }
   upload(){

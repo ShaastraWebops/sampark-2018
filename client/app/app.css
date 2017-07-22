@@ -45,6 +45,7 @@
 /* Component styles are injected through gulp */
 /* inject:css */
 @import 'admin/admin.css';
+@import 'editevent/editevent.css';
 @import 'edition/edition.css';
 @import 'editsampark/editsampark.css';
 @import 'events/events.css';

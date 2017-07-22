@@ -16,10 +16,11 @@
     </div>
   </div>
 <pre>{{$ctrl.data}}</pre>
+<button ng-click="$ctrl.deleteThing()">Register in {{$ctrl.data.name}}</button>
   <form class="thing-form">
     <label>Syncs in realtime across clients</label>
     <p class="input-group">
-      <input type="text" class="form-control" placeholder="Add a new thing here." ng-model="$ctrl.newThing">
+      <input type="text" class="form-control" placeholder="Add a new event name here." ng-model="$ctrl.newThing">
       <span class="input-group-btn">
         <button type="submit" class="btn btn-primary" ng-click="$ctrl.addThing()">Add New</button>
       </span>
