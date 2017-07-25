@@ -103,5 +103,11 @@ export function setTokenCookie(req, res) {
   }
   var token = signToken(req.user._id, req.user.role);
   res.cookie('token', token);
-  res.redirect('/');
+  console.log(req.user);
+  if(req.user.college){
+    res.redirect('/');
+  }
+  else{
+    res.redirect('/login');
+  }
 }
