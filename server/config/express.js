@@ -59,7 +59,11 @@ export default function(app) {
       db: 'sampark'
     })
   }));
-
+  app.use(function(err, req, res, next) {
+    if(401 == err.status) {
+        res.redirect('/login');
+    }
+  });
   /**
    * Lusca - express server security
    * https://github.com/krakenjs/lusca

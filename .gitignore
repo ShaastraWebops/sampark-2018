@@ -11,3 +11,5 @@ npm-debug.log
 coverage
 /server/api/certificate/pdfs
 /server/api/certificate/htmls
+/server/config/environment/development.js
+/client/app/main/main.component.js

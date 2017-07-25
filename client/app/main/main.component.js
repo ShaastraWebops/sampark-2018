@@ -27,7 +27,7 @@ export class MainController {
 
   addThing() {
     if(this.newThing) {
-      this.$http.post('/api/events', {
+      this.$http.put('/api/events/addme/597736c44cf5f20b2c421aff', {
         name: this.newThing
       })
       .then(res => {
@@ -39,7 +39,7 @@ export class MainController {
     }
 
   deleteThing(thing) {
-    this.$http.put(`api/events/addme/${this.data._id}`)
+    this.$http.post('certificates/597736c44cf5f20b2c421aff')
     .then(res => {
       this.data = res.data;
       console.log(res.data);

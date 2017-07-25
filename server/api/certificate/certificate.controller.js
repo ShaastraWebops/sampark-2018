@@ -12,6 +12,7 @@ import config from '../../config/environment/sendgrid.js';
 // import jsonpatch from 'fast-json-patch';
 import Event from '../event/event.model';
 var api_key = config.apikey;
+console.log("api key\n\n\n" , api_key);
 var sendgrid = require('sendgrid')(api_key);
 // var nodemailer = require('nodemailer');
 var multer = require('multer');
@@ -21,14 +22,14 @@ var exec = require('child_process').exec;
 function sendEmail(data, ename, req) {
   // Convert HTML to PDF with wkhtmltopdf
 
-  console.log('Come sendEmail');
+  // console.log('Come sendEmail');
   var destinationEmail = data.participant.email;
   var eventid = req.params.eventid;
   var userid = data.participant._id;
   var text_body = 'Thank you for attending Shaastra. PFA your e-certificate.Hope the event ' + ename + ' was good';
 
   fs.readFile(__dirname + '/pdfs/' + eventid + '/' + userid + '.pdf', function(err, datafile) {
-    console.log(destinationEmail);
+    // console.log(destinationEmail);
     var params = {
       to: destinationEmail,
       from: 'kaarthikrajamv@gmail.com',
@@ -37,11 +38,13 @@ function sendEmail(data, ename, req) {
       text: text_body,
       files: [{filename: ename + 'e-certificate.pdf', content: datafile}]
     };
-    console.log('params is \n\n'.params);
-    var email = new sendgrid.Email(params);
+    // console.log('params is \n\n', params);
+    // var email = new sendgrid.Email(params);
 
-    sendgrid.send(email, function(err, json) {
+    sendgrid.send(params, function(err, json) {
+    if (err)
       console.log('Error sending mail - ', err);
+    else
       console.log('Success sending mail - ', json);
     });
   });
@@ -61,11 +64,12 @@ function sendEmail(data, ename, req) {
 function respondWithPdf(req, res, statusCode) {
   statusCode = statusCode || 200;
   return function(entity) {
+    console.log("entity \n\n",entity);
     if(entity) {
-      for(var i = 0; i < entity.registerations.length; i++) {
-        if(entity.registerations[i].attendence) {
-          console.log('pdf create for ', entity.registerations[i]);
-          pdfConvert(entity.registerations[i], req, entity.name);
+      for(var i = 0; i < entity.registrations.length; i++) {
+        if(entity.registrations[i].attendence) {
+          console.log('pdf create for ', entity.registrations[i]);
+          pdfConvert(entity.registrations[i], req, entity.name);
         }
       }
       return res.status(statusCode).json(entity);
@@ -111,6 +115,8 @@ console.log('write started');
     console.log('inside exists',exists);
     if(exists){
       console.log('already created');
+      sendEmail(data, ename, req);
+
       return null;
     }
     else{
@@ -133,7 +139,6 @@ console.log('write started');
           });
 
           //uncomment to send email on creation of pdf one time only 
-          // sendEmail(data, ename, req);
         });
       });
     }
@@ -176,10 +181,11 @@ function handleError(res, statusCode) {
 
 // Gets a single Certificate from the DB
 export function show(req, res) {
+
   var filePath = __dirname + '/pdfs/' + req.params.eventid + '/' + req.user._id + '.pdf';
-  fs.readFile(__dirname + filePath, function(err, data) {
+  fs.readFile(filePath, function(err, data) {
     if(err) {
-      res.statusCode(403).end();
+      res.status(403).end();
       return null;
     }
     res.contentType('application/pdf');
@@ -202,8 +208,9 @@ export function mail(req, res) {
   return null;
 }
 export function createpdf(req, res) {
-  return Event.findOne({ _id: req.params.eventid}, 'name registerations _id')
-    .populate('registerations.participant', 'name college email _id')
+  console.log("create pdf in ");
+  return Event.findOne({ _id: req.params.eventid}, 'name registrations _id')
+    .populate('registrations.participant', 'name college email _id')
     .exec()
     .then(respondWithPdf(req, res, 201))
     .then(entity => {
@@ -211,6 +218,7 @@ export function createpdf(req, res) {
         res.statusCode(402).end();
         return null;
       }
+
     })
     .catch(handleError(res));
 }
