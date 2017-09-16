@@ -19,6 +19,8 @@
 var fs = require('fs');
 import jsonpatch from 'fast-json-patch';
 import Event from './event.model';
+import Sampark from '../sampark/sampark.model';
+import User from '../user/user.model';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -97,6 +99,9 @@ export function create(req, res) {
     //for certificate storage
     fs.mkdir(fpath+'htmls/'+entity._id); 
     fs.mkdir(fpath+'pdfs/'+entity._id); 
+    if(entity){
+      Sampark.findOneAndUpdate({_id:req.body.sampark},{$push:{events:entity._id}}).exec();
+    }
     return entity;
     })
     .then(respondWithResult(res, 201))
@@ -153,6 +158,9 @@ export function regisuser(req, res){
     .then(entity=>{//remove sensitive data 
       console.log(entity);
       entity["registrations"]=undefined;
+      if(entity){
+      User.findOneAndUpdate({_id:req.user._id},{$push:{registered:{event:req.params.eventid}}}).exec();
+    }
       return entity;
     })
     .then(respondWithResult(res))
@@ -166,6 +174,9 @@ export function deregister(req, res){
     .exec() 
     .then(entity=>{//remove sensitive data 
       delete entity.registrations;
+      if(entity){
+      User.findOneAndUpdate({_id:req.user._id},{$pull:{registered:{event:req.params.eventid}}}).exec();
+      }
       return entity;
     })
     .then(respondWithResult(res))
@@ -176,6 +187,11 @@ export function putattendence(req, res){
       { _id: req.params.eventid , 'registrations.participant':req.params.userid},
       {$set: { 'registrations.$.attendence':true } })
     .exec()
+    .then(entity => {
+      if(entity){
+      User.findOneAndUpdate({ _id:req.params.userid , 'registered.event':req.params.eventid}, {$set: { 'registered.$.attendence':true } }).exec();
+      }
+    })
     .then(respondWithResult(res))
     .catch(handleError(res));
 }

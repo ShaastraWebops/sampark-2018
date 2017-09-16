@@ -134,6 +134,8 @@ function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
   return function(entity) {
     if(entity) {
+      entity.password=undefined;
+      entity.salt=undefined;
       return res.status(statusCode).json(entity);
     }
     return null;

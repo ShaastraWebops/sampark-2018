@@ -103,5 +103,16 @@ export function setTokenCookie(req, res) {
   }
   var token = signToken(req.user._id, req.user.role);
   res.cookie('token', token);
-  res.redirect('/');
+  if(req.user.college ){
+    console.log('in /', req.user.new);
+    res.redirect('/');
+  }
+  else if(req.user.new){
+    console.log('in /signup', req.user.new);
+    res.redirect('/signup');
+  }
+  else{
+    console.log(req.user.new);
+    res.redirect('/login');
+  }
 }

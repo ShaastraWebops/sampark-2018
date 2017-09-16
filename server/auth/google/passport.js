@@ -8,30 +8,28 @@ export function setup(User, config) {
     callbackURL: config.google.callbackURL
   },
   function(accessToken, refreshToken, profile, done) {
-    User.findOne({email: profile.emails[0].value}).exec()
+    User.findOne({'google.id': profile.id}).exec()
       .then(user => {
         if(user) {
-          user.google = profile._json;
-          user.save()
-          .then(savedUser => {
-            return done(null, savedUser);})
-          .catch(err => done(err));
-          // return null;
+          user.new = false;
+          done(null, user);
+          return null;
         }
-        else 
-        {
-          user = new User({
-            name: profile.displayName,
-            email: profile.emails[0].value,
-            role: 'user',
-            username: profile.emails[0].value.split('@')[0],
-            provider: 'google',
-            google: profile._json
-          });
-          user.save()
-          .then(savedUser => done(null, savedUser))
+
+        user = new User({
+          name: profile.displayName,
+          email: profile.emails[0].value,
+          role: 'user',
+          username: profile.emails[0].value.split('@')[0],
+          provider: 'google',
+          google: profile._json
+        });
+        user.save()
+          .then(savedUser => { 
+            savedUser.new = true;
+            done(null, savedUser);
+          })
           .catch(err => done(err));
-        }
       })
       .catch(err => done(err));
   }));
