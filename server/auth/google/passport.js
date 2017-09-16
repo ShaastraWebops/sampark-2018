@@ -11,7 +11,9 @@ export function setup(User, config) {
     User.findOne({'google.id': profile.id}).exec()
       .then(user => {
         if(user) {
-          return done(null, user);
+          user.new = false;
+          done(null, user);
+          return null;
         }
 
         user = new User({
@@ -23,7 +25,10 @@ export function setup(User, config) {
           google: profile._json
         });
         user.save()
-          .then(savedUser => done(null, savedUser))
+          .then(savedUser => { 
+            savedUser.new = true;
+            done(null, savedUser);
+          })
           .catch(err => done(err));
       })
       .catch(err => done(err));

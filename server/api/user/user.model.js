@@ -21,6 +21,7 @@ var UserSchema = new Schema({
     }
   },
   rollnum: String,
+
   college: String,
   branch: String,
   phone: Number,
