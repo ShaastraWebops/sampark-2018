@@ -12,7 +12,6 @@ export default function(app) {
   app.use('/certificates', require('./api/certificate'));
   app.use('/api/samparks', require('./api/sampark'));
   app.use('/api/events', require('./api/event'));
-  app.use('/api/things', require('./api/thing'));
   app.use('/api/users', require('./api/user'));
 
   app.use('/auth', require('./auth').default);
