@@ -22,11 +22,11 @@ import admin from './admin';
 import navbar from '../components/navbar/navbar.component';
 import footer from '../components/footer/footer.component';
 import main from './main/main.component';
-import edition from './edition/edition.component';
-import events from './events/events.component';
-import register from './register/register.component';
+import editions from './editions/editions.component';
 import editsampark from './editsampark/editsampark.component';
-import editevent from './editevent/editevent.component';
+import feedback from './feedback/feedback.component';
+import profile from './profile/profile.component';
+import registrations from './registrations/registrations.component';
 import constants from './app.constants';
 import util from '../components/util/util.module';
 import socket from '../components/socket/socket.service';
@@ -34,8 +34,8 @@ import socket from '../components/socket/socket.service';
 import './app.css';
 
 angular.module('samparkApp', [ngCookies, ngResource, ngSanitize, 'btford.socket-io', uiRouter,
-  uiBootstrap, _Auth, account, admin, events, 'validation.match', navbar, footer, main, edition, register, 
-  editsampark, editevent, constants, socket, util
+  uiBootstrap, _Auth, account, admin, events, 'validation.match', navbar, footer, main, editions,  
+  editsampark, feedback, profile, registrations, constants, socket, util
 ])
   .config(routeConfig)
   .run(function($rootScope, $location, Auth) {

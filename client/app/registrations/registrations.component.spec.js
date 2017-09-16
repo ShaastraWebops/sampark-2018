@@ -1,14 +1,14 @@
 'use strict';
 
-describe('Component: RegisterComponent', function() {
+describe('Component: RegistrationsComponent', function() {
   // load the controller's module
-  beforeEach(module('sampark2018App.register'));
+  beforeEach(module('sampark2018App.registrations'));
 
-  var RegisterComponent;
+  var RegistrationsComponent;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function($componentController) {
-    RegisterComponent = $componentController('register', {});
+    RegistrationsComponent = $componentController('registrations', {});
   }));
 
   it('should ...', function() {

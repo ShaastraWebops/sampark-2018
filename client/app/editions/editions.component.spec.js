@@ -1,14 +1,14 @@
 'use strict';
 
-describe('Component: EditeventComponent', function() {
+describe('Component: EditionsComponent', function() {
   // load the controller's module
-  beforeEach(module('sampark2018App.editevent'));
+  beforeEach(module('sampark2018App.editions'));
 
-  var EditeventComponent;
+  var EditionsComponent;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function($componentController) {
-    EditeventComponent = $componentController('editevent', {});
+    EditionsComponent = $componentController('editions', {});
   }));
 
   it('should ...', function() {

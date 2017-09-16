@@ -3,8 +3,8 @@
 export default function($stateProvider) {
   'ngInject';
   $stateProvider
-    .state('editevent', {
-      url: '/editevent',
-      template: '<editevent></editevent>'
+    .state('feedback', {
+      url: '/feedback',
+      template: '<feedback></feedback>'
     });
 }

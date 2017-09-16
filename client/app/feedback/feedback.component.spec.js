@@ -1,14 +1,14 @@
 'use strict';
 
-describe('Component: EventsComponent', function() {
+describe('Component: FeedbackComponent', function() {
   // load the controller's module
-  beforeEach(module('sampark2k18App.events'));
+  beforeEach(module('sampark2018App.feedback'));
 
-  var EventsComponent;
+  var FeedbackComponent;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function($componentController) {
-    EventsComponent = $componentController('events', {});
+    FeedbackComponent = $componentController('feedback', {});
   }));
 
   it('should ...', function() {
