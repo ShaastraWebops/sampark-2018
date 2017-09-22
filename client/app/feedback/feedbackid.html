@@ -1,0 +1,41 @@
+<div class="col-md-3"></div>
+<div class="col-md-6">
+<form>
+<legend >Feedback Form:(Anonymous)<br>
+<small><small>we store whether you gave feedback only</small></small></legend>
+
+  <div class="form-group" >
+    <fieldset class="rating">
+        <!-- <label style="display: flex;"><b>Quality:</b></label> -->
+
+        <input type="radio" id="star15" name="rating1" value="5" ng-model="$Ctrl.quality"/><label for="star15" title="Rocks!">5 stars</label>
+        <input type="radio" id="star14" name="rating1" value="4" ng-model="$Ctrl.quality"/><label for="star14" title="Pretty good">4 stars</label>
+        <input type="radio" id="star13" name="rating1" value="3" ng-model="$Ctrl.quality"/><label for="star13" title="normie">3 stars</label>
+        <input type="radio" id="star12" name="rating1" value="2" ng-model="$Ctrl.quality"/><label for="star12" title="could be better">2 stars</label>
+        <input type="radio" id="star11" name="rating1" value="1" ng-model="$Ctrl.quality"/><label for="star11" title="Improvements needed">1 star</label>
+        <span style="font-size: 24px;"><b>Quality:</b></span>
+    </fieldset>
+  </div>
+  <br><br>
+  <div class="form-group" style="float: left;">
+    <fieldset class="rating">
+        <!-- <label style="display: flex;"><b>Quality:</b></label> -->
+
+        <input type="radio" id="star25" name="rating2" value="5" ng-model="$Ctrl.materials"/><label for="star25" title="Rocks!">5 stars</label>
+        <input type="radio" id="star24" name="rating2" value="4" ng-model="$Ctrl.materials"/><label for="star24" title="Pretty good">4 stars</label>
+        <input type="radio" id="star23" name="rating2" value="3" ng-model="$Ctrl.materials"/><label for="star23" title="normie">3 stars</label>
+        <input type="radio" id="star22" name="rating2" value="2" ng-model="$Ctrl.materials"/><label for="star22" title="could be better">2 stars</label>
+        <input type="radio" id="star21" name="rating2" value="1" ng-model="$Ctrl.materials"/><label for="star21" title="Improvements needed">1 star</label>
+        <span style="font-size: 24px;"><b>Materials:</b></span>
+    </fieldset>
+  </div>
+  <br><br>
+  <div class="form-group">
+    <legend style="float: left;">Suggestions</legend>
+    <!-- <span style="font-size: 24px;"><b>Suggestions</b></span> -->
+    <textarea ng-model="$Ctrl.suggestions" rows="4" style="width: 100%"></textarea>
+  </div>
+<button class="btn btn-primary" ng-click="$Ctrl.submitfeedback()" style="margin-left: 45%;">Submit</button>
+</form>
+</div>
+  

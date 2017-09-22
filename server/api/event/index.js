@@ -14,15 +14,15 @@ router.get('/myregis/all', auth.isAuthenticated(), controller.myregis);
 router.put('/addme/:eventid', auth.isAuthenticated(), controller.regisuser);
 router.delete('/delme/:eventid/', auth.isAuthenticated(), controller.deregister);
 
-router.put('/:eventid/user/:userid/attendence', auth.hasPower(), controller.putattendence);
+router.put('/:eventid/user/:userid/attendance', auth.hasPower(), controller.putattendance);
 router.get('/registrations/:eventid', auth.hasPower(), controller.eventregis);
 
 // router.put('/:eventid/user/:userid/left', auth.hasPower(), controller.putabsence);
 
 router.post('/', auth.hasRole('core'), controller.create);
 router.put('/:id', auth.hasRole('core'), controller.upsert);
-router.put('/:eventid/admin/:adminid', auth.hasRole('core'), controller.addadmin);
-router.delete('/:eventid/admin/:adminid', auth.hasRole('core'), controller.removeadmin);
+// router.put('/:eventid/admin/:adminid', auth.hasRole('core'), controller.addadmin);
+// router.delete('/:eventid/admin/:adminid', auth.hasRole('core'), controller.removeadmin);
 // router.patch('/:id', auth.hasRole('core'), controller.patch);
 router.delete('/:id', auth.hasRole('core'), controller.destroy);
 

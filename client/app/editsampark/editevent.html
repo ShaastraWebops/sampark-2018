@@ -1,0 +1,110 @@
+<div id="edtevent">
+  	<h2>Event Administration<small>-{{$Ctrl.sampark.name}}</small></h2>
+    <div class="col-md-2 ">
+
+  	<div>
+  		<ul class="nav nav-pills nav-stacked">
+       	<li ng-class="{ active: $Ctrl.isSet(1) }">
+          	<a href ng-click="$Ctrl.setTab(1)">ADD</a>
+       	</li>
+       	<li ng-class="{ active: $Ctrl.isSet(2) }">
+          	<a href ng-click="$Ctrl.setTab(2)">EDIT</a>
+       	</li>
+       	<li ng-class="{ active: $Ctrl.isSet(3) }">
+          	<a href ng-click="$Ctrl.setTab(3)">REMOVE</a>
+       	</li>
+     	</ul>
+    </div>
+    </div>
+
+    <div class="col-md-8 ">
+  		<div class="jumbotron">
+
+       	<div ng-show="$Ctrl.isSet(1)">
+		 <form name="formadd">
+		 <legend>New Sampark Detail</legend>
+		  <div class="form-group">
+		    <label for="evename">Name</label>
+		    <input type="text" class="form-control" name="evename" id="evename"  ng-model="$Ctrl.event.name" ng-required="true">
+		    <div ng-show="formadd.evename.$error.required && formadd.evename.$touched" style="color: red">Requied*</div>
+		  </div>
+		  <div class="form-group">
+		    <label for="eveinfo">Venue</label>
+		    <input type="text" class="form-control" name="evevenue" id="evevenue"  ng-model="$Ctrl.event.venue" ng-required="true" >
+		    <div ng-show="formadd.evevenue.$error.required && formadd.evevenue.$touched" style="color: red">Required*</div>
+		  </div>
+		  <div class="form-group">
+		    <label for="evetime">Time</label>
+		    <input type="text" class="form-control" name="evetime" id="evetime"  ng-model="$Ctrl.event.time" ng-required="true" >
+		    <div ng-show="formadd.evetime.$error.required && formadd.evetime.$touched" style="color: red">Required*</div>
+		  </div>
+		  <div class="form-group">
+		    <label for="eveinstructions">Instructions</label>
+		    <input type="text" class="form-control" name="eveinstructions" id="eveinstructions" ng-model="$Ctrl.event.instructions" ng-required="true" >
+		    <div ng-show="formadd.eveinstructions.$error.required && formadd.eveinstructions.$touched" style="color: red">Required*</div>
+		  </div>
+		  <button class="btn btn-success" ng-click="$Ctrl.addevent()" ng-disabled="formadd.$error.required">Submit</button>
+		</form> 
+
+        </div>
+
+		<div ng-show="$Ctrl.isSet(2)">
+			<div>Choose Event to Edit<br>
+		  		<ul class="nav nav-pills">
+		       	<div ng-repeat="event in $Ctrl.sampark.events">
+		       	<button class="btn btn-primary" ng-click="$Ctrl.oneditclick(event)">
+		          	{{event.name | uppercase}} -{{event.venue}}
+		       	</button>
+		       	<br><br>
+		       	</div>
+		     	</ul>
+    		</div>
+			 <form name="formedit">
+			 <legend>Edit Sampark Detail</legend>
+			  <div class="form-group">
+			    <label for="evename">Name</label>
+			    <input type="text" class="form-control" name="evename" id="evename"  ng-model="$Ctrl.eventid.name" ng-required="true">
+			    <div ng-show="formedit.evename.$error.required && formedit.evename.$touched" style="color: red">Requied*</div>
+			  </div>
+			  <div class="form-group">
+			    <label for="eveinfo">Venue</label>
+			    <input type="text" class="form-control" name="evevenue" id="evevenue"  ng-model="$Ctrl.eventid.venue" ng-required="true" >
+			    <div ng-show="formedit.evevenue.$error.required && formedit.evevenue.$touched" style="color: red">Required*</div>
+			  </div>
+			  <div class="form-group">
+			    <label for="evetime">Time</label>
+			    <input type="text" class="form-control" name="evetime" id="evetime"  ng-model="$Ctrl.eventid.time" ng-required="true" >
+			    <div ng-show="formedit.evetime.$error.required && formedit.evetime.$touched" style="color: red">Required*</div>
+			  </div>
+			  <div class="form-group">
+			    <label for="eveinstructions">Instructions</label>
+			    <input type="text" class="form-control" name="eveinstructions" id="eveinstructions" ng-model="$Ctrl.eventid.instructions" ng-required="true" >
+			    <div ng-show="formedit.eveinstructions.$error.required && formedit.eveinstructions.$touched" style="color: red">Required*</div>
+			  </div>
+			  <button class="btn btn-success" ng-click="$Ctrl.saveevent()" ng-disabled="formedit.$error.required">Submit</button>
+			</form> 
+		</div>
+     	<!-- _________________________________________________________________________________________________ -->
+
+        <div ng-show="$Ctrl.isSet(3)">
+			<div>
+		       	<div ng-repeat="event in $Ctrl.sampark.events" align="center">
+					<div class="card ">
+						<h2>------------------------------------</h2>
+					  <h2>{{event.name   | uppercase}}</h2>
+					  <p class="title">{{event.venue}}</p>
+					  <p class="title">{{event.time}}</p>
+					  <a ng-href="{{event.venuelink}}">{{event.venuelink}}</a><br>
+					  <p><button ng-click="$Ctrl.remove(event)" class="btn btn-danger" >Remove</button></p>
+					</div>
+					<br>
+		       	</div>
+						<h2 align="center">------------------------------------</h2>
+
+    		</div>
+     	</div>
+
+<!-- ___________________________________________________________________________________________________ -->
+  	</div>
+  </div>
+</div>

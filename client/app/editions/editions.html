@@ -1,1 +1,22 @@
-<div>This is the editions view.</div>
+    <div class="container">
+		<div class="row">
+			<div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
+				<ul class="event-list">
+					<li ng-repeat="sampark in $Ctrl.samparks" ng-click="$Ctrl.sgo(sampark._id)">
+						<time datetime="2014-07-20">
+							<span class="day" >{{sampark.date.day}}</span>
+							<span class="month">{{sampark.date.month}}</span>
+						</time>
+						<!-- <img alt="Independence Day" src="https://farm4.staticflickr.com/3100/2693171833_3545fb852c_q.jpg" /> -->
+						<div class="info" >
+							<h1 class="title">{{sampark.name}}</h1>
+							<p class="desc">{{sampark.venue}}</p>
+							<p class="desc">Contact: {{sampark.contact.name}}-{{sampark.contact.phnumber}}</p>
+							<!-- <button ng-click="$Ctrl.sgo(sampark._id)">gggg</button> -->
+							<!-- <button></button> -->
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>

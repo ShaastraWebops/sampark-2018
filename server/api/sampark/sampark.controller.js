@@ -60,20 +60,22 @@ function handleEntityNotFound(res) {
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
   return function(err) {
+  console.log("\nerror inn user ctrl",err);
+
     res.status(statusCode).send(err);
   };
 }
 
 // Gets a list of Samparks
 export function index(req, res) {
-  return Sampark.find().exec()
+  return Sampark.find({},'-events').exec()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
 // Gets a single Sampark from the DB
 export function show(req, res) {
-  return Sampark.findById(req.params.id).exec()
+  return Sampark.findById(req.params.id).populate("events","-registrations").exec()
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));

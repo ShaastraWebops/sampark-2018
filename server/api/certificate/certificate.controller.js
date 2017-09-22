@@ -115,7 +115,6 @@ console.log('write started');
     console.log('inside exists',exists);
     if(exists){
       console.log('already created');
-      sendEmail(data, ename, req);
 
       return null;
     }
@@ -137,6 +136,7 @@ console.log('write started');
             if(err) throw err;
             console.log('DELETED dummy html');
           });
+          sendEmail(data, ename, req);
 
           //uncomment to send email on creation of pdf one time only 
         });

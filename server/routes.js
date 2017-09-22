@@ -9,6 +9,7 @@ import path from 'path';
 
 export default function(app) {
   // Insert routes below
+  app.use('/api/feedbacks', require('./api/feedback'));
   app.use('/certificates', require('./api/certificate'));
   app.use('/api/samparks', require('./api/sampark'));
   app.use('/api/events', require('./api/event'));

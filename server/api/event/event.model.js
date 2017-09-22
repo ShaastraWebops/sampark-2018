@@ -28,7 +28,7 @@ var EventSchema = new mongoose.Schema({
   participant: {
     type: Schema.Types.ObjectId,
     ref: 'User'}, 
-  attendence:{
+  attendance:{
     type:Boolean, 
     default: false}
   }]

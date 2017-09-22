@@ -1,1 +1,42 @@
-<div>This is the registrations view.</div>
+<div class="container">
+<div class="col-md-3"></div>
+<div class="col-md-6">
+	<form name="form">
+		<legend>View Registrations - Attendance</legend>
+		<div class="form-group">
+			<label for="sampark">Sampark</label>
+			<select id="sampark" ng-model="$Ctrl.sampark" ng-options="sampark as (sampark.name | uppercase ) for sampark in $Ctrl.samparks" ng-click="$Ctrl.eventsel()"  style="min-width: 30%;" />
+		<input hidden="true">
+			<label for="event">Event</label>
+			<select id="event" ng-model="$Ctrl.event" ng-options="event as (event.name | uppercase ) for event in $Ctrl.events" 
+			ng-click="$Ctrl.display()" style="min-width: 30%;" />
+		</div>
+		<input hidden="true">
+	</form>
+<table class="table table-striped" style="position: relative; margin-top: 15px;">
+    <thead>
+      <tr>
+      	<th>S.No</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>College</th>
+        <th>Attendence</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- <tr ng-repeat="user in $Ctrl.registrations "> -->
+      <tr ng-repeat="user in $Ctrl.registrations track by $index">
+      	<td>{{$index + 1}}</td>
+      	<!-- <td>{{user}}</td> -->
+        <td>{{user.participant.name}}</td>
+        <td>{{user.participant.college}}</td>
+        <td>{{user.participant.email}}</td>
+        <td>
+        	<button ng-show="user.attendance" class="btn btn-success" disabled="true">Attended</button>
+        	<button ng-hide="user.attendance" class="btn btn-primary" ng-click="$Ctrl.putattendance($index)">Mark Present</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>

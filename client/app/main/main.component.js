@@ -17,14 +17,6 @@ export class MainController {
     });
   }
 
-  $onInit() {
-    this.$http.get('/api/things')
-      .then(response => {
-        this.awesomeThings = response.data;
-        this.socket.syncUpdates('thing', this.awesomeThings);
-      });
-  }
-
   addThing() {
     if(this.newThing) {
       this.$http.put('/api/events/addme/597736c44cf5f20b2c421aff', {
@@ -45,22 +37,6 @@ export class MainController {
       console.log(res.data);
     });
     console.log(thing);
-  }
-  upload(){
-    this.newThing="inside upload func";
-    var file = angular.element(document.querySelector('#file')).prop("files")[0];
-    var files = [];
-    files.push(file);
-    this.newThing=file;
-
-    this.$http.post('certificates/pic/participation', {
-      title: 'certificate', 
-      file: file
-    })
-    .then(res => {
-      this.data = res.data;
-      console.log(res.data);
-    });
   }
 }
 

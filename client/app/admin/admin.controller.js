@@ -12,9 +12,9 @@ export default class AdminController {
     user.$remove();
     this.users.splice(this.users.indexOf(user), 1);
   }
-  mkadmin(user) {
-    console.log('-----mkadm-----', user);
-    this.$http.put(`/api/users/mkadm/${user._id}`).then(res => console.log(res));
-    console.log('\nadmin\n');
-  }
+  // mkadmin(user) {
+  //   console.log('-----mkadm-----', user);
+  //   this.$http.put(`/api/users/mkadm/${user._id}`).then(res => console.log(res));
+  //   console.log('\nadmin\n');
+  // }
 }

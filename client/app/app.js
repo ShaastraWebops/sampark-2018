@@ -34,7 +34,7 @@ import socket from '../components/socket/socket.service';
 import './app.css';
 
 angular.module('samparkApp', [ngCookies, ngResource, ngSanitize, 'btford.socket-io', uiRouter,
-  uiBootstrap, _Auth, account, admin, events, 'validation.match', navbar, footer, main, editions,  
+  uiBootstrap, _Auth, account, admin, 'validation.match', navbar, footer, main, editions,  
   editsampark, feedback, profile, registrations, constants, socket, util
 ])
   .config(routeConfig)

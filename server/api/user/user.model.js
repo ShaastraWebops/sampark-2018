@@ -37,6 +37,10 @@ var UserSchema = new Schema({
     attendance: {
       type: Boolean,
       default: false
+    },
+    feedback:{
+      type:Boolean,
+      default: false
     }
   }],
   password: {

@@ -1,0 +1,21 @@
+<div class="container">
+	<div class="row">
+		<div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
+			<ul class="event-list">
+				<li ng-repeat="event in $Ctrl.events track by $index">
+					<time datetime="2014-07-20">
+						<!-- <span class="day">{{event.venue}}</span> --><br><br>
+						<span class="month">{{$index + 1}}</span>
+					</time>
+					<!-- <img alt="Independence Day" src="https://farm4.staticflickr.com/3100/2693171833_3545fb852c_q.jpg" /> -->
+					<div class="info">
+						<h1 class="title">{{event.name}}</h1>
+						<p class="desc">{{event.time}} @ {{event.venue}}</p>
+						<p class="desc">{{event.instructions}}</p>
+						<button class="btn btn-primary" ng-click="$Ctrl.register(event._id)">Register</button>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
