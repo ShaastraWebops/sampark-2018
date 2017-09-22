@@ -1,1 +1,152 @@
-<div>This is the editsampark view.</div>
+<div id="edtsmprk">
+  	<h2>Sampark Administration</h2>
+    <div class="col-md-2 ">
+
+  	<div>
+  		<ul class="nav nav-pills nav-stacked">
+       	<li ng-class="{ active: $Ctrl.isSet(1) }">
+          	<a href ng-click="$Ctrl.setTab(1)">ADD</a>
+       	</li>
+       	<li ng-class="{ active: $Ctrl.isSet(2) }">
+          	<a href ng-click="$Ctrl.setTab(2)">EDIT</a>
+       	</li>
+       	<li ng-class="{ active: $Ctrl.isSet(3) }">
+          	<a href ng-click="$Ctrl.setTab(3)">REMOVE</a>
+       	</li>
+       	<li ng-class="{ active: $Ctrl.isSet(4) }">
+          	<a href ng-click="$Ctrl.setTab(4)">ADD EVENTS</a>
+       	</li>
+     	</ul>
+    </div>
+    </div>
+
+    <div class="col-md-8 ">
+  		<div class="jumbotron">
+       	<div ng-show="$Ctrl.isSet(1)">
+		 <form name="formadd">
+		 <legend>New Sampark Detail</legend>
+		  <div class="form-group">
+		    <label for="smname">Name</label>
+		    <input type="text" class="form-control" name="smname" id="smname"  ng-model="$Ctrl.sampark.name" ng-required="true">
+		    <div ng-show="formadd.smname.$error.required && formadd.smname.$touched" style="color: red">Requied*</div>
+		  </div>
+		  <div class="form-group">
+		    <label for="sminfo">Venue</label>
+		    <input type="text" class="form-control" name="smvenue" id="smvenue"  ng-model="$Ctrl.sampark.venue" ng-required="true" >
+		    <div ng-show="formadd.smvenue.$error.required && formadd.smvenue.$touched" style="color: red">Required*</div>
+		  </div>
+		  <div class="form-group">
+		    <label for="smtime">Sampark: Day</label>
+		    <input type="text" name="smtime" id="smtime"  ng-model="$Ctrl.sampark.date.day" ng-required="true" >
+		    <div ng-show="formadd.smtime.$error.required && formadd.smtime.$touched" style="color: red">Required*</div>
+		    <label for="smmonth">Month</label>
+		    <input type="text" name="smmonth" id="smmonth"  ng-model="$Ctrl.sampark.date.month" ng-required="true" >
+		    <div ng-show="formadd.smmonth.$error.required && formadd.smmonth.$touched" style="color: red">Required*</div>
+		  </div>
+		  <div class="form-group">
+		    <label for="smvenue">Venue(Link)</label>
+		    <input type="text" class="form-control" name="smvenuelink" id="smvenuelink" ng-model="$Ctrl.sampark.venuelink" ng-required="true" >
+		    <div ng-show="formadd.smvenuelink.$error.required && formadd.smvenuelink.$touched" style="color: red">Required*</div>
+		  </div>
+		  <div class="form-group">
+		    <label for="smhead">Sampark Head </label>
+		    <input type="text" class="form-control" name="smhead" id="smhead"  ng-model="$Ctrl.sampark.contact.name" ng-required="true" >
+		    <div ng-show="formadd.smhead.$error.required && formadd.smhead.$touched" style="color: red">Required*</div>
+		  </div>
+		  <div class="form-group">
+		    <label for="smvenue">Phone Number</label>
+		    <input type="tel" class="form-control" name="smnum"  id="smnum"  ng-pattern="/^[0-9]{10}$/"   ng-model="$Ctrl.sampark.contact.phnumber" ng-required="true" >
+		    <div ng-show="formadd.smnum.$error.required && formadd.smnum.$touched" style="color: red">Required*</div>
+		    <div ng-show="formadd.smnum.$error.pattern && formadd.smnum.$touched" style="color: red">10 Digit Number is Needed</div>
+		  </div>
+		  <button class="btn btn-success" ng-click="$Ctrl.addsampark()" ng-disabled="formadd.$error.required || formadd.smnum.$error.pattern">Submit</button>
+		</form> 
+
+        </div>
+
+		<div ng-show="$Ctrl.isSet(2)">
+			<div>Choose Sampark to Edit<br>
+		  		<ul class="nav nav-pills">
+		       	<li ng-repeat="smprk in $Ctrl.samparks">
+		       	<button class="btn btn-primary" ng-click="$Ctrl.oneditclick(smprk)">
+		          	{{smprk.name | uppercase}} -{{smprk.venue}}
+		       	</button>
+		       	</li>
+		     	</ul>
+    		</div>
+			 <form name="formedit">
+			  <div class="form-group">
+			    <label for="smname">Name</label>
+			    <input type="text" class="form-control" name="smname" id="smname"  ng-model="$Ctrl.samparkid.name" ng-required="true">
+			    <div ng-show="formedit.smname.$error.required && formedit.smname.$dirty" style="color: red">Requied*</div>
+			  </div>
+			  <div class="form-group">
+			    <label for="sminfo">Venue</label>
+			    <input type="text" class="form-control" name="smvenue" id="smvenue"  ng-model="$Ctrl.samparkid.venue" ng-required="true" >
+			    <div ng-show="formedit.smvenue.$error.required && formedit.smvenue.$dirty" style="color: red">Required*</div>
+			  </div>
+			  <div class="form-group">
+			    <label for="smtime">Sampark: Day</label>
+			    <input type="text" name="smtime" id="smtime"  ng-model="$Ctrl.samparkid.date.day" ng-required="true" >
+			    <div ng-show="formedit.smtime.$error.required && formedit.smtime.$touched" style="color: red">Required*</div>
+			    <label for="smmonth">Month</label>
+			    <input type="text" name="smmonth" id="smmonth"  ng-model="$Ctrl.samparkid.date.month" ng-required="true" >
+			    <div ng-show="formedit.smmonth.$error.required && formedit.smmonth.$dirty" style="color: red">Required*</div>
+			  </div>
+			  <div class="form-group">
+			    <label for="smvenue">Venue(Link)</label>
+			    <input type="text" class="form-control" name="smvenuelink" id="smvenuelink" ng-model="$Ctrl.samparkid.venuelink" ng-required="true" >
+			    <div ng-show="formedit.smvenuelink.$error.required && formedit.smvenuelink.$dirty" style="color: red">Required*</div>
+			  </div>
+			  <div class="form-group">
+			    <label for="smhead">Sampark Head </label>
+			    <input type="text" class="form-control" name="smhead" id="smhead"  ng-model="$Ctrl.samparkid.contact.name" ng-required="true" >
+			    <div ng-show="formedit.smhead.$error.required && formedit.smhead.$dirty" style="color: red">Required*</div>
+			  </div>
+			  <div class="form-group">
+			    <label for="smvenue">Phone Number</label>
+			    <input type="tel" class="form-control" name="smnum"  id="smnum"  ng-pattern="/^[0-9]{10}$/"   ng-model="$Ctrl.samparkid.contact.phnumber" ng-required="true" >
+			    <div ng-show="formedit.smnum.$error.required && formedit.smnum.$dirty" style="color: red">Required*</div>
+			    <div ng-show="formedit.smnum.$error.pattern && formedit.smnum.$dirty" style="color: red">10 Digit Number is Needed</div>
+			  </div>
+			  <button class="btn btn-success" ng-click="$Ctrl.savesampark()" ng-disabled="formedit.$error.required || formedit.smnum.$error.pattern">Save </button>
+			</form> 
+		</div>
+     	<!-- _________________________________________________________________________________________________ -->
+
+        <div ng-show="$Ctrl.isSet(3)">
+			<div>
+		       	<div ng-repeat="smprk in $Ctrl.samparks" align="center">
+					<div class="card ">
+						<h2>------------------------------------</h2>
+					  <h1>{{smprk.name   | uppercase}}</h1>
+					  <p class="title">{{smprk.venue}}</p>
+					  <p class="title">{{smprk.date.day}}/{{smprk.date.month}}</p>
+					  <a ng-href="{{smprk.venuelink}}">{{smprk.venuelink}}</a><br>
+					  <small style="margin-bottom: 5px;">Contact</small>
+					  <small>{{smprk.contact.name}}--{{smprk.contact.phnumber}}</small>
+					  <p><button ng-click="$Ctrl.remove(smprk)" class="btn btn-danger" >Remove</button></p>
+					</div>
+					<br>
+		       	</div>
+    		</div>
+     	</div>
+
+<!-- ___________________________________________________________________________________________________ -->
+
+        <div ng-show="$Ctrl.isSet(4)">
+			<div>Choose Sampark to ADD Events<br>
+		  		<ul class="nav nav-pills nav-stacked" >
+		       	<li ng-repeat="smprk in $Ctrl.samparks">
+		       	<button class="btn btn-primary" ng-click="$Ctrl.editevent(smprk)">
+		          ->	{{smprk.name | uppercase}} -{{smprk.venue}} - {{smprk.date.day}}/{{smprk.date.month}}
+		       	</button>
+		       	<br><br>
+		       	</li>
+		     	</ul>
+    		</div>
+		</div>
+
+  	</div>
+  </div>
+</div>

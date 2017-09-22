@@ -6,5 +6,9 @@ export default function($stateProvider) {
     .state('feedback', {
       url: '/feedback',
       template: '<feedback></feedback>'
+    })
+    .state('feedbackid', {
+      url: '/feedback/:id',
+      template: '<feedbackid></feedbackid>'
     });
 }

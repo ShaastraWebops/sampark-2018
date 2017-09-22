@@ -7,9 +7,15 @@ import {registerEvents} from './sampark.events';
 var SamparkSchema = new mongoose.Schema({
   name: String,
   venue: String,
-  time: String,
-  venueLink: String,
-  contact: String,
+  date: {
+    day: Number,
+    month: String
+  },
+  venuelink: String,
+  contact: {
+    name:String,
+    phnumber: Number
+  },
   events: [{
   	type: Schema.Types.ObjectId,
   	ref: 'Event',

@@ -1,1 +1,66 @@
-<div>This is the profile view.</div>
+<div id="profile"   style="background-color: white; height: 100vh;">
+		<!--
+User Profile Sidebar by @keenthemes
+A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
+Licensed under MIT
+-->
+
+<div class="container">
+    <div class="row profile">
+		<div class="col-md-3">
+			<div class="profile-sidebar">
+				<!-- SIDEBAR USERPIC -->
+				<!-- END SIDEBAR USERPIC -->
+				<!-- SIDEBAR USER TITLE -->
+				<div class="profile-usertitle">
+					<div class="profile-usertitle-name">
+						{{$Ctrl.me.name}}
+					</div>
+					<div class="profile-usertitle-job">
+						{{$Ctrl.me.rollnum}}
+					</div>
+				</div>
+				<!-- END SIDEBAR USER TITLE -->
+				<!-- SIDEBAR MENU -->
+				<div class="profile-usermenu">
+					<ul class="nav">
+						<li >
+							<a href="#">
+							<i class="fa fa-graduation-cap" aria-hidden="true"></i>
+							{{$Ctrl.me.branch}} </a>
+						</li>
+						<li>
+							<a href="#">
+							<i class="fa fa-building" aria-hidden="true"></i>
+							{{$Ctrl.me.college}} </a>
+						</li>
+						<li>
+							<a href="#" target="_blank">
+							<i class="fa fa-mobile" aria-hidden="true"></i>
+							{{$Ctrl.me.phone}} </a>
+						</li>
+					</ul>
+				</div>
+				<!-- END MENU -->
+			</div>
+		</div>
+		<div class="col-md-9">
+			<h2>Events Registered</h2>
+            <div class="profile-content">
+			    <div class="panel panel-primary" style=": 90%" ng-repeat="regis in $Ctrl.me.registered">
+		                <div class="panel-heading">{{regis.event.name}}</div>
+		                <div class="panel-body">
+		                	<p>{{regis.event.time}}</p>
+		                	<p>{{regis.event.venue}}</p>
+		                	<p>{{regis.event.instructions}}</p>
+		                </div>
+		                <div class="panel-footer">
+		                	<span ng-hide="regis.attendance">Attend {{regis.event.name}} for certificate</span>
+		                	<span ng-show="regis.attendance && !regis.feedback"><a ui-sref="feedback({id:regis.event._id})"> Please fill feedback form for certificates</a></span>
+		                	<span ng-show="regis.attendance && regis.feedback"><a ng-href="/certificates/{{regis.event._id}}">Click For Certificate</a></span>
+		                </div>
+				</div>
+            </div>
+		</div>
+	</div>
+</div>" ng-show="!regis.attendance || ">

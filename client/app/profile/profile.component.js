@@ -7,9 +7,16 @@ import routes from './profile.routes';
 
 export class ProfileComponent {
   /*@ngInject*/
-  constructor() {
-    this.message = 'Hello';
+  constructor($http,$state) {
+    this.$http = $http;
+    this.$state = $state;
+
   }
+  $onInit() {
+    this.$http.get('/api/users/me').then( res => {
+      this.me=res.data;
+    });
+}
 }
 
 export default angular.module('sampark2018App.profile', [uiRouter])
@@ -17,6 +24,6 @@ export default angular.module('sampark2018App.profile', [uiRouter])
   .component('profile', {
     template: require('./profile.html'),
     controller: ProfileComponent,
-    controllerAs: 'profileCtrl'
+    controllerAs: '$Ctrl'
   })
   .name;

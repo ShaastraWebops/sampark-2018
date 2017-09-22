@@ -6,5 +6,9 @@ export default function($stateProvider) {
     .state('editions', {
       url: '/editions',
       template: '<editions></editions>'
+    })
+    .state('eventlist',{
+    	url:'/editions/:samparkid',
+    	template: '<eventlist></eventlist>'
     });
 }
