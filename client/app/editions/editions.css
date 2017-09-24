@@ -7,7 +7,13 @@
 		list-style: none;
 		font-family: 'Lato', sans-serif;
 		margin: 0px;
+		opacity: 0.8;
 		padding: 0px;
+		  background: url('/../assets/images/logo.png') no-repeat center center fixed; 
+/*  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;*/
 	}
 	.event-list > li {
 		background-color: rgb(255, 255, 255);

@@ -5,14 +5,19 @@
 		<legend>View Registrations - Attendance</legend>
 		<div class="form-group">
 			<label for="sampark">Sampark</label>
-			<select id="sampark" ng-model="$Ctrl.sampark" ng-options="sampark as (sampark.name | uppercase ) for sampark in $Ctrl.samparks" ng-click="$Ctrl.eventsel()"  style="min-width: 30%;" />
-		<input hidden="true">
+			<select id="sampark" ng-model="$Ctrl.sampark" ng-options="sampark as (sampark.name | uppercase ) for sampark in $Ctrl.samparks" ng-click="$Ctrl.eventsel()"  style="width: 150dpi;" />
+    </div>
+    <input hidden="true">
+    <div class="form-group">
 			<label for="event">Event</label>
 			<select id="event" ng-model="$Ctrl.event" ng-options="event as (event.name | uppercase ) for event in $Ctrl.events" 
-			ng-click="$Ctrl.display()" style="min-width: 30%;" />
+			ng-click="$Ctrl.display()" style="width: 150dpi;" />
 		</div>
 		<input hidden="true">
 	</form>
+  <br>
+  <button ng-show="$Ctrl.nofevents" class="btn btn-success" style="float: right; margin-right:40%; margin-top: 5px;" ng-click="$Ctrl.CreatePDF()">Create Certificates</button>
+
 <table class="table table-striped" style="position: relative; margin-top: 15px;">
     <thead>
       <tr>

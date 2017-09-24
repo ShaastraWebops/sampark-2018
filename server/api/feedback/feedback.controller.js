@@ -14,6 +14,7 @@ import jsonpatch from 'fast-json-patch';
 import Feedback from './feedback.model';
 import User from '../user/user.model';
 
+
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
   return function(entity) {
@@ -54,26 +55,31 @@ function handleError(res, statusCode) {
 
 // Gets a list of Feedbacks
 export function index(req, res) {
-  return Feedback.find().exec()
+  return Feedback.find()
+    .populate('event', 'name venue _id')
+    .exec()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
 // Gets a single Feedback from the DB
 export function show(req, res) {
-  return Feedback.find({event:req.params.id}).exec()
+  return Feedback.find({event:req.params.id})
+    .populate('event','name venue _id')
+    .exec()
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
 // Creates a new Feedback in the DB
-export function create(req, res) {
+export function createpdfuser(req, res) {
   return Feedback.create(req.body)
     .then(entity => {
       if(entity){
       User.findOneAndUpdate({ _id:req.user._id , 'registered.event':req.body.event , 'registered.attendance':true}, {$set: { 'registered.$.feedback':true } }).exec()
       .then(entity => {
+        
         return entity;
       });
       }
@@ -82,8 +88,17 @@ export function create(req, res) {
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }
-
-
+export function create(req, res) {
+  return Feedback.create(req.body)
+    .then(entity => {
+      if(entity){
+      User.findOneAndUpdate({ _id:req.user._id , 'registered.event':req.body.event , 'registered.attendance':true}, {$set: { 'registered.$.feedback':true } }).exec();
+      }
+      return entity;
+    })
+    .then(respondWithResult(res, 201))
+    .catch(handleError(res));
+}
 // Deletes a Feedback from the DB
 // export function destroy(req, res) {
 //   return Feedback.findById(req.params.id).exec()

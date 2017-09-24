@@ -7,15 +7,19 @@ import routes from './feedback.routes';
 
 export class FeedbackComponent {
   /*@ngInject*/
-  constructor() {
-    this.message = 'Hello';
+  constructor($http) {
+    this.$http=$http;
+    this.feedbacks=[];
+  }
+  $onInit() {
+    this.$http.get('/api/feedbacks').then( res=> this.feedbacks = res.data);
   }
 }
 
 export class FeedIdComponent{
   /*@ngInject*/
   constructor($http,$window,$state) {
-    this.message = 'Hello';
+    this.message = 'Hello fb';
     this.$http=$http;
     this.$state=$state;
     this.params=$state.params;
