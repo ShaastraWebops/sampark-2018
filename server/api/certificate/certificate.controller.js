@@ -65,8 +65,10 @@ function sendEmail(data, ename, req) {
 // }
 
 function respondWithPdf(req, res, statusCode) {
+
   statusCode = statusCode || 200;
   return function(entity) {
+    console.log("\nentity of respondWithPdf",entity);
     if(entity) {
       for(var i = 0; i < entity.registrations.length; i++) {
         if(entity.registrations[i].attendance) {
@@ -105,7 +107,7 @@ function pdfConvert(data, req, ename) {
                     + '</h3><h3 style = "position:absolute;top:47%;left:32%">'
                     + data.participant.college
                     + '</h3><h3 style = "position:absolute;top:51.5%;left:45%">'
-                    + data.ename
+                    + ename
                     + '</h3></body></html>';
   // console.log('dummyContent is\n\n', dummyContent);
   // var dummyContent = '<!DOCTYPE html><html><head><title></title></head><body><img style="width:100%" src="./winnerscertificate.jpg"><h3 style="position:absolute;top:42.5%;left:35%">Howard</h3><h3 style="position:absolute;top:47%;left:32%">IIT Madras</h3></body></html>';

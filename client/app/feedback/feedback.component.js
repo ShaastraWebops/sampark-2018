@@ -37,7 +37,7 @@ submitfeedback(){
     materials:this.materials,
     suggestions:this.suggestions
   }).then(res => {
-    this.state.go('profile');
+    this.$state.go('profile');
   });
 }
 }
