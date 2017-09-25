@@ -26,6 +26,7 @@ export class RegistrationsComponent {
     });
   }
   eventsel(){
+    if(this.sampark._id)
     this.$http.get(`/api/samparks/${this.sampark._id}`).then( res => {
       if(res.data.events.length){
       this.events=res.data.events;
@@ -49,6 +50,10 @@ export class RegistrationsComponent {
     }
     });
   }
+  }
+  CreatePDF(){
+    this.$http.post(`/certificates/${this.event._id}`);
+    
   }
   putattendance(index){
     this.id=this.registrations[index].participant._id;

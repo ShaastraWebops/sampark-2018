@@ -28,7 +28,7 @@ export class EventListComponent{
   /*@ngInject*/
   constructor($http,$state,$window){
     this.$http=$http;
-    this.state=$state;
+    this.$state=$state;
     this.$window=$window;
     this.params=$state.params;
     this.sampark={};
@@ -42,7 +42,7 @@ export class EventListComponent{
   register(id){
     this.$http.put(`/api/events/addme/${id}`).then(res =>{
     this.$window.alert("Successfully Registered");
-    this.$window.location.reload();
+    this.$state.go('profile');
     });
   }
 

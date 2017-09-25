@@ -11,6 +11,9 @@ import config from '../../config/environment/sendgrid.js';
 
 // import jsonpatch from 'fast-json-patch';
 import Event from '../event/event.model';
+import Feedback from '../feedback/feedback.model';
+import User from '../user/user.model';
+
 var api_key = config.apikey;
 console.log("api key\n\n\n" , api_key);
 var sendgrid = require('sendgrid')(api_key);
@@ -62,13 +65,13 @@ function sendEmail(data, ename, req) {
 // }
 
 function respondWithPdf(req, res, statusCode) {
+
   statusCode = statusCode || 200;
   return function(entity) {
-    console.log("entity \n\n",entity);
+    console.log("\nentity of respondWithPdf",entity);
     if(entity) {
       for(var i = 0; i < entity.registrations.length; i++) {
-        if(entity.registrations[i].attendence) {
-          console.log('pdf create for ', entity.registrations[i]);
+        if(entity.registrations[i].attendance) {
           pdfConvert(entity.registrations[i], req, entity.name);
         }
       }
@@ -104,7 +107,7 @@ function pdfConvert(data, req, ename) {
                     + '</h3><h3 style = "position:absolute;top:47%;left:32%">'
                     + data.participant.college
                     + '</h3><h3 style = "position:absolute;top:51.5%;left:45%">'
-                    + data.ename
+                    + ename
                     + '</h3></body></html>';
   // console.log('dummyContent is\n\n', dummyContent);
   // var dummyContent = '<!DOCTYPE html><html><head><title></title></head><body><img style="width:100%" src="./winnerscertificate.jpg"><h3 style="position:absolute;top:42.5%;left:35%">Howard</h3><h3 style="position:absolute;top:47%;left:32%">IIT Madras</h3></body></html>';
@@ -112,10 +115,8 @@ function pdfConvert(data, req, ename) {
 console.log('write started');
 
   fs.exists(pdfFileName, exists => {
-    console.log('inside exists',exists);
     if(exists){
       console.log('already created');
-
       return null;
     }
     else{
@@ -136,7 +137,7 @@ console.log('write started');
             if(err) throw err;
             console.log('DELETED dummy html');
           });
-          sendEmail(data, ename, req);
+          // sendEmail(data, ename, req);
 
           //uncomment to send email on creation of pdf one time only 
         });
@@ -145,7 +146,6 @@ console.log('write started');
     });
   // Save to HTML file
 
-  console.log('Rendered to ' + htmlFileName + ' and ' + pdfFileName + '\n');
   return null;
 }
 
@@ -181,7 +181,7 @@ function handleError(res, statusCode) {
 
 // Gets a single Certificate from the DB
 export function show(req, res) {
-
+console.log("certificates show enter");
   var filePath = __dirname + '/pdfs/' + req.params.eventid + '/' + req.user._id + '.pdf';
   fs.readFile(filePath, function(err, data) {
     if(err) {
@@ -278,3 +278,4 @@ export function destroy(req, res) {
   res.status(201).json({ success: true});
   return res.end();
 }
+

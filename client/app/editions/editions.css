@@ -2,12 +2,48 @@
     body {
 		background-color: rgb(220, 220, 220);
 	}
-    
+
+	#eventlist{
+		/*background: url('../../assets/images/s4.jpg') repeat ; */
+		background: url('../../assets/images/s2.png') repeat ; 
+		-webkit-background-size: 400px 300px;
+		-moz-background-size: 400px 300px;
+		-o-background-size: 400px 300px;
+		background-size: 400px 300px;
+		height: 95vh;
+		width: 98vw;
+		margin: auto;
+		margin-top: -20px;
+
+		padding: 10px;
+	}
+    #edition{
+		/*background: url('../../assets/images/s3.jpg') repeat ; */
+		background: url('../../assets/images/s2.png') repeat ; 
+		-webkit-background-size: 400px 300px;
+		-moz-background-size: 400px 300px;
+		-o-background-size: 400px 300px;
+		background-size: 400px 300px;
+		height: 95vh;
+		width: 98vw;
+		margin: auto;
+		margin-top: -20px;
+
+		padding: 10px;
+}
+    .event-list:hover li{
+    	transition: 1s;
+    	box-shadow: 0px 0px 10px rgb(100, 100, 100);
+    }
     .event-list {
 		list-style: none;
 		font-family: 'Lato', sans-serif;
 		margin: 0px;
 		padding: 0px;
+/*  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;*/
 	}
 	.event-list > li {
 		background-color: rgb(255, 255, 255);
@@ -167,4 +203,21 @@
 			width: 40px;
 			padding: 10px 0px 9px;
 		}
+	}
+	ul > li
+	{
+		transition:1s;
+		opacity: 0.99;
+	}
+
+    
+	ul:hover > li
+	{
+		transition:1s;
+		opacity: 0.7;
+	}
+	ul:hover li:hover 
+	{
+		transition:1s;
+		opacity: 1.0;
 	}

@@ -1,1 +1,29 @@
-<div>This is the feedback view.</div>
+
+<div class="col-md-2"></div>
+<div class="col-md-8">
+<h1 class="label label-info">All Feedbacks</h1>
+<table class="table table-striped" style="position: relative; margin-top: 15px;">
+    <thead>
+      <tr>
+      	<th>S.No</th>
+        <th>Name</th>
+        <th>Quality</th>
+        <th>Quantity</th>
+        <th>Attendence</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- <tr ng-repeat="user in $Ctrl.registrations "> -->
+      <tr ng-repeat="fb in $Ctrl.feedbacks | orderBy: 'event.name' track by $index ">
+      	<td>{{$index + 1}}</td>
+      	<!-- <td>{{user}}</td> -->
+        <td>{{fb.event.name}}</td>
+        <td>{{fb.quality}}</td>
+        <td>{{fb.materials}}</td>
+        <td>
+        	<textarea disabled="true" placeholder="{{fb.suggestions}}" style="width: 90%;"></textarea>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>

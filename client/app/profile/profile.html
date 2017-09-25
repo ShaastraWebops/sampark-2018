@@ -1,4 +1,4 @@
-<div id="profile"   style="background-color: white; height: 100vh;">
+<div id="profile"   style="background-color: white; height: 100vh; margin-top: -20px;">
 		<!--
 User Profile Sidebar by @keenthemes
 A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
@@ -56,8 +56,8 @@ Licensed under MIT
 		                </div>
 		                <div class="panel-footer">
 		                	<span ng-hide="regis.attendance">Attend {{regis.event.name}} for certificate</span>
-		                	<span ng-show="regis.attendance && !regis.feedback"><a ui-sref="feedback({id:regis.event._id})"> Please fill feedback form for certificates</a></span>
-		                	<span ng-show="regis.attendance && regis.feedback"><a ng-href="/certificates/{{regis.event._id}}">Click For Certificate</a></span>
+		                	<span ng-show="regis.attendance && !regis.feedback"><a ui-sref="feedbackid({id:regis.event._id})"> Please fill feedback form for certificates (click)</a></span>
+		                	<span ng-show="regis.attendance && regis.feedback"><a target="_blank" ng-href="/certificates/{{regis.event._id}}">Click For Certificate <small>coord needs to allow cert generation</small></a></span>
 		                </div>
 				</div>
             </div>
