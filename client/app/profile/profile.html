@@ -1,4 +1,4 @@
-<div id="profile"   style="background-color: white; height: 100%; margin-top: -20px;">
+<div id="profile"   style="background-color: white; min-height: 99%; margin-top: -20px;">
 		<!--
 User Profile Sidebar by @keenthemes
 A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
@@ -9,10 +9,15 @@ Licensed under MIT
     <div class="row profile">
 		<div class="col-md-3">
 			<div class="profile-sidebar">
+
 				<!-- SIDEBAR USERPIC -->
 				<!-- END SIDEBAR USERPIC -->
 				<!-- SIDEBAR USER TITLE -->
 				<div class="profile-usertitle">
+					<div class="profile-header-img" ng-show="$Ctrl.me.google">
+				    	<img class="img-circle" ng-src="#Ctrl.me.google.image.url" />
+				    <!-- badge -->
+					</div>
 					<div class="profile-usertitle-name">
 						{{$Ctrl.me.name}}
 					</div>
@@ -24,17 +29,17 @@ Licensed under MIT
 				<!-- SIDEBAR MENU -->
 				<div class="profile-usermenu">
 					<ul class="nav">
-						<li >
+						<li ng-show="$Ctrl.me.branch">
 							<a href="#">
 							<i class="fa fa-graduation-cap" aria-hidden="true"></i>
 							{{$Ctrl.me.branch}} </a>
 						</li>
-						<li>
+						<li ng-show="$Ctrl.me.college">
 							<a href="#">
 							<i class="fa fa-building" aria-hidden="true"></i>
 							{{$Ctrl.me.college}} </a>
 						</li>
-						<li>
+						<li ng-show="$Ctrl.me.phone">
 							<a href="#" target="_blank">
 							<i class="fa fa-mobile" aria-hidden="true"></i>
 							{{$Ctrl.me.phone}} </a>

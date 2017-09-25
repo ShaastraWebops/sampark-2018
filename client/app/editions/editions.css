@@ -218,6 +218,9 @@
 	}
 	ul:hover li:hover 
 	{
+		  -moz-transform: scale(1.02);
+ 		 -webkit-transform: scale(1.02);
+ 		 transform: scale(1.02);
 		transition:1s;
 		opacity: 1.0;
 	}

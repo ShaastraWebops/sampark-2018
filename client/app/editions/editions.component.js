@@ -7,7 +7,8 @@ import routes from './editions.routes';
 
 export class EditionsComponent {
   /*@ngInject*/
-  constructor($http,$state,$window) {
+  constructor($http,$state,$window,Auth) {
+    this.Auth=Auth;
     this.$http=$http;
     this.$state=$state;
     this.$window=$window;
@@ -26,13 +27,13 @@ export class EditionsComponent {
 
 export class EventListComponent{
   /*@ngInject*/
-  constructor($http,$state,$window){
+  constructor($http,$state,$window,Auth){
     this.$http=$http;
     this.$state=$state;
     this.$window=$window;
     this.params=$state.params;
     this.sampark={};
-    this.mess="ello";
+    this.isLoggedIn = Auth.isLoggedInSync;
   }
     $onInit() {
     this.$http.get(`/api/samparks/${this.params.samparkid}`).then( res => {
@@ -40,12 +41,16 @@ export class EventListComponent{
     });
   }
   register(id){
-    this.$http.put(`/api/events/addme/${id}`).then(res =>{
-    this.$window.alert("Successfully Registered");
-    this.$state.go('profile');
-    }).catch(err => {
-    this.$window.alert("Already Registered");
-    });
+    if (this.isLoggedIn())
+      this.$http.put(`/api/events/addme/${id}`).then(res =>{
+        this.$window.alert("Successfully Registered");
+        this.$state.go('profile');
+      })
+      .catch(err => {
+        this.$window.alert("Already Registered");
+      });
+    else
+      this.$state.go('login');
   }
 
 }
