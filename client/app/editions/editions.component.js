@@ -43,6 +43,8 @@ export class EventListComponent{
     this.$http.put(`/api/events/addme/${id}`).then(res =>{
     this.$window.alert("Successfully Registered");
     this.$state.go('profile');
+    }).catch(err => {
+    this.$window.alert("Already Registered");
     });
   }
 

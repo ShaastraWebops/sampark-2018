@@ -5,6 +5,7 @@ export default function($stateProvider) {
   $stateProvider
     .state('registrations', {
       url: '/registrations',
-      template: '<registrations></registrations>'
+      template: '<registrations></registrations>',
+      authenticate: 'core'
     });
 }

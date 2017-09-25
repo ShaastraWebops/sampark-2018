@@ -1,4 +1,4 @@
-<div id="profile"   style="background-color: white; height: 100vh; margin-top: -20px;">
+<div id="profile"   style="background-color: white; height: 100%; margin-top: -20px;">
 		<!--
 User Profile Sidebar by @keenthemes
 A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
@@ -50,9 +50,8 @@ Licensed under MIT
 			    <div class="panel panel-primary" style=": 90%" ng-repeat="regis in $Ctrl.me.registered">
 		                <div class="panel-heading">{{regis.event.name}}</div>
 		                <div class="panel-body">
-		                	<p>{{regis.event.time}}</p>
-		                	<p>{{regis.event.venue}}</p>
-		                	<p>{{regis.event.instructions}}</p>
+		                	<p><span class="fa fa-map-marker" aria-hidden="true"></span> {{regis.event.venue}}  - <span class="fa fa-clock-o" aria-hidden="true"></span>{{regis.event.time}}</p>
+		                	<p><i class="fa fa-info-circle" aria-hidden="true"></i> {{regis.event.instructions}}</p>
 		                </div>
 		                <div class="panel-footer">
 		                	<span ng-hide="regis.attendance">Attend {{regis.event.name}} for certificate</span>
@@ -63,4 +62,4 @@ Licensed under MIT
             </div>
 		</div>
 	</div>
-</div>" ng-show="!regis.attendance || ">
+</div>
